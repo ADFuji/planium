@@ -1,60 +1,80 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import styled from "styled-components";
 
-const ContainerStyle = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 70px;
-height: 100%;
-margin: 0;
-padding: 0;
+const DayContainer = styled.div`
+    width: 100%;
+    max-height: 120px;
+    min-height: 70px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,0.08);
+    font-size: 1.3rem;
 `;
 
-const Span = styled.span`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-margin: 5px;
-padding: 5px;
-height: 5px;
-`;
-const CenteredDiv = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-margin: 0;
-padding: 0;
-`;
-const todayStyle = {
-    backgroundColor: "red",
-    color: "white",
-    width: "40px",
-    height: "40px",
+const day_style = {
     borderRadius: "50%",
-    marginTop:"3px"
+    padding: "5px"
 };
 
-function Day(props)
-{
+const eventStyle = {
+    width: "5px",
+    height: "5px",
+    borderRadius: "50%",
+    backgroundColor: "rgb(120,120,120)",
+    marginTop: "10px",
+    padding: "5px"
+};
+
+const noEventStyle = {
+    width: "5px",
+    height: "5px",
+    borderRadius: "50%",
+    marginTop: "10px",
+    padding: "5px"
+};
+
+const todayStyle = {
+    color: "white",
+    backgroundColor: "coral"
+};
+
+function Day(props) {
     const [day, setDay] = React.useState(props.day);
+    const [month, setMonth] = React.useState(props.month);
+    const [year, setYear] = React.useState(props.year);
     const [hasEvent, setHasEvent] = React.useState(props.hasEvent);
 
-    if(day=="")
-    {
+    useEffect(() => {
+        setDay(props.day);
+        setMonth(props.month);
+        setYear(props.year);
+        setHasEvent(props.hasEvent);
+    }, [props.day, props.month, props.year, props.hasEvent]);
+
+    const date = new Date(year, month, day);
+    if (date.getMonth() != month) {
         return (
-            <div>
-            </div>
+            <DayContainer>
+                <span></span>
+                <span></span>
+            </DayContainer>
         );
     }
-    console.log(props.day, props.month, props.year);
-    console.log(props.today.getDate(), props.today.getMonth()+1, props.today.getFullYear());
-    const isTODAY = day==props.today.getDate() && props.month==props.today.getMonth()+1 && props.year==props.today.getFullYear();
 
+    return (
+        <DayContainer>
+            <span style={props.isToday ? todayStyle : {}}>{day}</span>
+            <span style={hasEvent ? eventStyle : noEventStyle}></span>
+        </DayContainer>
+    );
+
+    /*
     return (
         <ContainerStyle style={{borderTop: day!=="" ? "1px solid rgb(100,100,100)" : "1px transparent"}}>
             <CenteredDiv style={isTODAY ? todayStyle : {}}><p>{day}</p></CenteredDiv>
@@ -63,6 +83,7 @@ function Day(props)
             }
         </ContainerStyle>
     );
+    */
 }
 
 export default Day;

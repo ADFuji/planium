@@ -1,33 +1,45 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import styled from 'styled-components';
 
 import Week from './Week';
 
-function Month(props){
-    const startDay = props.start.split("/")[0];
-    const startMonth = props.start.split("/")[1];
-    const startYear = props.start.split("/")[2];
-    const startDate = new Date(startYear, startMonth, startDay);
-    const endDay = props.end.split("/")[0];
-    const endMonth = props.end.split("/")[1];
-    const endYear = props.end.split("/")[2];
-    const endDate = new Date(endYear, endMonth, endDay);
-    let weeks = [];
-    for(let i=0;i<5;i++){
-        weeks.push(<Week start={startDay+i*7+"/"+startMonth+"/"+startYear} end={startDay+(i+1)*7+"/"+startMonth+"/"+startYear} />);
-    }
+const MonthContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+function Month(props) {
+    const [month, setMonth] = React.useState(props.month);
+    const [year, setYear] = React.useState(props.year);
+
+    useEffect(() => {
+        setMonth(props.month);
+        setYear(props.year);
+    }, [props.month, props.year]);
+
     return (
-        <div>
-            <h3>{startMonth+"/"+startYear}</h3>
-            <Fragment style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%"}}>
-                <Week firstWeek={true} start={startDay+"/"+startMonth+"/"+startYear} end={parseInt(startDay)+7+"/"+startMonth+"/"+startYear} />
-                <Week firstWeek={false} lastWeek={false} start={parseInt(startDay)+7+"/"+startMonth+"/"+startYear} end={parseInt(startDay)+14+"/"+startMonth+"/"+startYear} />
-                <Week firstWeek={false} lastWeek={false} start={parseInt(startDay)+14+"/"+startMonth+"/"+startYear} end={parseInt(startDay)+21+"/"+startMonth+"/"+startYear} />
-                <Week firstWeek={false} lastWeek={false} start={parseInt(startDay)+21+"/"+startMonth+"/"+startYear} end={parseInt(startDay)+28+"/"+startMonth+"/"+startYear} />
-                <Week firstWeek={false} lastWeek={true} start={parseInt(startDay)+28+"/"+startMonth+"/"+startYear} end={parseInt(startDay)+35+"/"+startMonth+"/"+startYear} />
-                <Week firstWeek={false} lastWeek={true} start={parseInt(startDay)+35+"/"+startMonth+"/"+startYear} end={parseInt(startDay)+42+"/"+startMonth+"/"+startYear} />
-            </Fragment>
-        </div>
+        <MonthContainer>
+            <Week firstWeek={true} lastWeek={false} firstDay={1} month={month} year={year} />
+            <Week firstWeek={false} lastWeek={false} firstDay={8} month={month} year={year} />
+            <Week firstWeek={false} lastWeek={false} firstDay={15} month={month} year={year} />
+            <Week firstWeek={false} lastWeek={false} firstDay={22} month={month} year={year} />
+            <Week firstWeek={false} lastWeek={true} firstDay={29} month={month} year={year} />
+        </MonthContainer>
     );
+
+    /*
+    return (
+        <MonthContainer>
+            <Week firstWeek={true} start={"01" + "/" + parsemonth + "/" + year} end={parseInt(startDay) + 7 + "/" + startMonth + "/" + startYear} />
+            <Week firstWeek={false} lastWeek={false} start={parseInt(startDay) + 7 + "/" + startMonth + "/" + startYear} end={parseInt(startDay) + 14 + "/" + startMonth + "/" + startYear} />
+            <Week firstWeek={false} lastWeek={false} start={parseInt(startDay) + 14 + "/" + startMonth + "/" + startYear} end={parseInt(startDay) + 21 + "/" + startMonth + "/" + startYear} />
+            <Week firstWeek={false} lastWeek={false} start={parseInt(startDay) + 21 + "/" + startMonth + "/" + startYear} end={parseInt(startDay) + 28 + "/" + startMonth + "/" + startYear} />
+            <Week firstWeek={false} lastWeek={true} start={parseInt(startDay) + 28 + "/" + startMonth + "/" + startYear} end={parseInt(startDay) + 35 + "/" + startMonth + "/" + startYear} />
+            <Week firstWeek={false} lastWeek={true} start={parseInt(startDay) + 35 + "/" + startMonth + "/" + startYear} end={parseInt(startDay) + 42 + "/" + startMonth + "/" + startYear} />
+        </MonthContainer>
+    );
+    */
 }
 export default Month;
 
