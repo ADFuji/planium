@@ -1,8 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import styled from "styled-components";
 
 import Day from "./Day";
+
+import { events, hasEvents } from "../../ParseJSON";
+
 
 function getNumberOfDays(month, year) {
     console.log(new Date(year, month, 0).getDate());
@@ -28,13 +31,29 @@ function getDay(date){
     }
 }
 
+const Td = styled.div`
+width: 70px;
+height: 70px;
+margin: 0;
+padding: 0;
+`;
+const Tr = styled.div`
+display: flex;
+flex-direction: row;
+width: 100%;
+height: 70px;
+margin: 0;
+padding: 0;
+`;
+
+const TODAY = new Date();
+
 function Week(props)
 {
     const startDay = props.start.split("/")[0];
     const startMonth = props.start.split("/")[1];
     const startYear = props.start.split("/")[2];
     const startDate = new Date(startYear, startMonth, startDay);
-    console.log(startDay,"/",startMonth,"/",startYear," = ",startDate);
     const endDay = props.end.split("/")[0];
     const endMonth = props.end.split("/")[1];
     const endYear = props.end.split("/")[2];
@@ -43,29 +62,30 @@ function Week(props)
     //get if start day is monday or tuesday or ...
     const startDayIndex = getDay(startDate);
     const endDayIndex = getDay(endDate);
-    console.log(" first day of week is ",startDayIndex);
     for(let i=0;i<7;i++){
         if(i+parseInt(startDay) - startDayIndex > getNumberOfDays(startMonth, startYear)){
-            s.push(<Day day="" hasEvent={false} />);
+
         }else{
             //s.push((i+parseInt(startDay) - startDayIndex)>0?(i+parseInt(startDay) - startDayIndex):"");
-            s.push(<Day day={(i+parseInt(startDay) - startDayIndex)>0?(i+parseInt(startDay) - startDayIndex):""} hasEvent={false} />);
+            s.push(<Day today={TODAY} day={(i+parseInt(startDay) - startDayIndex)>0?(i+parseInt(startDay) - startDayIndex):""} month={startMonth} year={startYear} hasEvent={hasEvents(new Date(startYear, startMonth, (i+parseInt(startDay) - startDayIndex)>0?(i+parseInt(startDay) - startDayIndex):""))}></Day>);
         }
     }
 
-    const Td = styled.td`
-        width: 70px;
-        height: 70px;
-    `;
+    if(s.length===0){
+        return (
+            <Fragment></Fragment>
+        );
+    }
+
 
     return (
-        <tr>
+        <Tr>
             {
                 s.map((day) => (
                     <Td>{day}</Td>
                 ))
             }
-        </tr>
+        </Tr>
     );
 }
 

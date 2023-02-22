@@ -1,0 +1,42 @@
+.day{
+    width: 100%;
+    max-height: 120px;
+    min-height: 70px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,0.08);
+    font-size: 1.3rem;
+}
+.day .d{
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.event{
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgb(120,120,120);
+    margin-top: 10px;
+    padding: 5px;
+}
+.noevent{
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 10px;
+    padding: 5px;  
+}
+
+.t{
+}
+
+.today{
+    color: white;
+    background-color: coral;
+}
