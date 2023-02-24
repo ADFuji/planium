@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect, setState, useRef, useCallback } from "react";
 import styled from "styled-components";
+
+import { DateContext, dateReducer } from "./DateProvider";
 import Header from "./Header";
 import Month from "./Month";
 
@@ -22,39 +24,16 @@ const CalendarContainer = styled.div`
 const TODAY = new Date();
 
 function Calendar(props) {
-    const [month, setMonth] = React.useState(TODAY.getMonth());
-    const [year, setYear] = React.useState(TODAY.getFullYear());
-    const [currentMonth, setCurrentMonth] = React.useState(<Month month={month} year={year} />);
+    const date = React.useContext(DateContext);
 
-    useEffect(() => {
-        setCurrentMonth(<Month month={month} year={year} />);
-    }, [month, year]);
-
-    const nextMonth = () => {
-        if (month === 11) {
-            setMonth(0);
-            setYear(year + 1);
-        } else {
-            setMonth(month + 1);
-        }
-        console.log("nextMonth", month, year);
-    }
-
-    const previousMonth = () => {
-        if (month === 0) {
-            setMonth(12);
-            setYear(year - 1);
-        } else {
-            setMonth(month - 1);
-            console.log("previousMonth", month, year);
-        }
-
-        return (
-            <CalendarContainer>
-                <Header nextMonth={nextMonth} previousMonth={previousMonth} month={month} year={year} />
-                {currentMonth}
-            </CalendarContainer>
-        );
-    }
+    return (
+        <CalendarContainer>
+            <Header/>
+            <Month previous={true}/>
+            <Month/>
+            <Month next={true}/>
+        </CalendarContainer>
+    );
+    
 }
 export default Calendar;

@@ -1,7 +1,10 @@
-import { React, useState, useEffect } from 'react';
+import React,{ useState, useEffect, useContext, useReducer } from 'react';
 import styled from 'styled-components';
 
+import { getMonth } from './DateProcess';
+
 import Button from "../Button";
+import { DateContext, dateReducer } from './DateProvider';
 import Month from './Month';
 
 const HeaderContainer = styled.div`
@@ -51,23 +54,23 @@ const days = {
 }
 
 function Header(props) {
-    const [language, setLanguage] = useState("fr");
-    const [month, setMonth] = useState(props.month);
-    const [year, setYear] = useState(props.year);
-    useEffect(() => {
-        setLanguage("fr");
-        setMonth(props.month);
-        setYear(props.year);
-    }, [props.language, props.month, props.year]);
+    const date = useContext(DateContext);
+    const [state, dispatch] = useReducer(dateReducer, {
+        date: {
+            month: 1,
+            year: 2023
+        }
+    });
+    const language = "fr";
 
     return (
         <HeaderContainer>
             <ControlsContainer>
-                <span style={controlsSpanStyle}>{month} {year}</span>
+                <span style={controlsSpanStyle}> {getMonth(state.date.month)} - {state.date.year}</span>
                 <SelectContainer>
-                    <Button onClick={props.previousMonth}>&lt;</Button>
-                    <Button onClick={() => { }}>{(language == "fr" ? "Aujourd'hui" : "Today")}</Button>
-                    <Button onClick={props.nextMonth}>&gt;</Button>
+                    <Button onClick={()=>dispatch({type:'prevMonth'})}>&lt;</Button>
+                    <Button onClick={() => { }}>Aujourd'hui</Button>
+                    <Button onClick={()=>dispatch({type:'nextMonth'})}>></Button>
                 </SelectContainer>
             </ControlsContainer>
             <DaysContainer>

@@ -57,12 +57,15 @@ function Week(props) {
     const [month, setMonth] = React.useState(props.month);
     const [year, setYear] = React.useState(props.year);
 
+    console.log("Week: " + props.firstDay + " " + props.month + " " + props.year);
+
     useEffect(() => {
         setFirstDay(props.firstDay);
         setMonth(props.month);
         setYear(props.year);
-    }, [props.firstDay, props.month, props.year]);
 
+    }, [props.firstDay, props.month, props.year]);
+    
     const firstDayIndex = getFirstDayOfTheMonth(new Date(year, month, 1));
     const days = [];
     for (let i = 0; i < 7; i++) {
