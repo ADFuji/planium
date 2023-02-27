@@ -5,10 +5,10 @@ const iconList = require("./assets/list.png");
 //by default, the toggle switch is off (on the left)
 
 const width = 80;
-const height = 40;
+const height = 30;
 const padding = 5;
-const iconWidth = 30;
-const iconHeight = 30;
+const iconWidth = height - 10;
+const iconHeight = iconWidth;
 
 
 const ToggleSwitchContainer = styled.label`
@@ -85,7 +85,6 @@ function ToggleSwitch(props) {
     return (
 
         <ToggleSwitchContainer>
-
             <ToggleSwitchInput type="checkbox" checked={checked} onChange={handleToggleSwitchChange} />
             <ToggleSwitchIcon src={icon} />
         </ToggleSwitchContainer>

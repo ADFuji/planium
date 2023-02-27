@@ -16,10 +16,11 @@ import Month from "./Month";
 const CalendarContainer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 5px;
     background-color: rgb(250,250,250);
     color: rgb(80,80,80);
-    width: 60%;
+    width: 95%;
     user-select: none;
 `;
 const TODAY = new Date();
@@ -33,10 +34,10 @@ function Calendar(props) {
 
     return (
         <CalendarContainer>
-            <Header/>
-            <Month/>
+            <Header />
+            <Month />
         </CalendarContainer>
     );
-    
+
 }
 export default Calendar;

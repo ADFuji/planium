@@ -11,9 +11,9 @@ const MonthContainer = styled.div`
 `;
 
 function Month(props) {
-    const {state, dispatch} = React.useContext(DateContext);
+    const { state, dispatch } = React.useContext(DateContext);
     const [weeks, setWeeks] = React.useState([]);
-    
+
     useEffect(() => {
         let temp = [];
         for (let i = 0; i < 6; i++) {

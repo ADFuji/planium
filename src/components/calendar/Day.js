@@ -24,21 +24,25 @@ const day_style = {
     padding: "5px"
 };
 
+const eventWith = 2;
+const eventHeight = eventWith;
+const eventMargin = 10;
+const eventPadding = 5;
 const eventStyle = {
-    width: "5px",
-    height: "5px",
+    width: `${eventWith}px`,
+    height: `${eventHeight}px`,
     borderRadius: "50%",
     backgroundColor: "rgb(120,120,120)",
-    marginTop: "10px",
-    padding: "5px"
+    marginTop: `${eventMargin}px`,
+    padding: `${eventPadding}px`
 };
 
 const noEventStyle = {
-    width: "5px",
-    height: "5px",
+    width: `${eventWith}px`,
+    height: `${eventHeight}px`,
     borderRadius: "50%",
-    marginTop: "10px",
-    padding: "5px"
+    marginTop: `${eventMargin}px`,
+    padding: `${eventPadding}px`
 };
 
 const todayStyle = {

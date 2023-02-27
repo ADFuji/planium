@@ -8,7 +8,7 @@ const MenuBarContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 60px;
     background-color: #f5f5f5;
     border-bottom: 1px solid #e0e0e0;
     padding: 0 10px;
