@@ -20,18 +20,21 @@ const CalendarContainer = styled.div`
     background-color: rgb(250,250,250);
     color: rgb(80,80,80);
     width: 60%;
+    user-select: none;
 `;
 const TODAY = new Date();
 
 function Calendar(props) {
     const date = React.useContext(DateContext);
+    const [previous, setPrevious] = useState(<Month previous={true} />);
+    const [current, setCurrent] = useState(<Month />);
+    const [next, setNext] = useState(<Month next={true} />);
+    const [thisMonth, setThisMonth] = useState(<Month month={TODAY.getMonth()} year={TODAY.getFullYear()} />);
 
     return (
         <CalendarContainer>
             <Header/>
-            <Month previous={true}/>
             <Month/>
-            <Month next={true}/>
         </CalendarContainer>
     );
     

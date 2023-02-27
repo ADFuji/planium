@@ -54,13 +54,14 @@ const days = {
 }
 
 function Header(props) {
-    const date = useContext(DateContext);
-    const [state, dispatch] = useReducer(dateReducer, {
+    const {state, dispatch} = useContext(DateContext);
+    //console.log(dateContext);
+    /*const [state, dispatch] = useReducer(dateReducer, {
         date: {
             month: 1,
             year: 2023
         }
-    });
+    });*/
     const language = "fr";
 
     return (

@@ -4,9 +4,7 @@ import styled from "styled-components";
 
 const DayContainer = styled.div`
     width: 100%;
-    max-height: 120px;
-    min-height: 70px;
-    height: 100px;
+    height: 70px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -15,6 +13,10 @@ const DayContainer = styled.div`
     padding: 0;
     border: 1px solid rgba(0,0,0,0.08);
     font-size: 1.3rem;
+    &:hover {
+        background-color: rgba(0,0,0,0.05);
+        cursor: pointer;
+    }
 `;
 
 const day_style = {
@@ -41,7 +43,9 @@ const noEventStyle = {
 
 const todayStyle = {
     color: "white",
-    backgroundColor: "coral"
+    backgroundColor: "coral",
+    borderRadius: "50%",
+    padding: "5px"
 };
 
 function Day(props) {
