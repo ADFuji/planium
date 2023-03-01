@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ToggleSwitch from "./ToggleSwitch";
 import Logo from "./Logo";
+import Button from "./Button";
 
 const MenuBarContainer = styled.div`
     display: flex;
@@ -27,6 +28,7 @@ function MenuBar(props) {
     return (
         <MenuBarContainer>
             <Logo>Planium</Logo>
+            <Button onClick={props.toggleMenu}>MenuBar</Button>
             <ToggleSwitch checked={checked} onChange={handleToggleSwitchChange} />
         </MenuBarContainer>
     );

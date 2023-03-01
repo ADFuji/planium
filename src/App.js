@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import MenuBar from "./components/MenuBar";
-
+import LeftSideMenu from "./components/LeftSideMenu";
 import tags from "./ParseJSON";
 import TagsList from "./components/TagsList/TagsList";
 import Tag from "./components/TagsList/Tag";
-
 import { DateProvider } from "./components/calendar/DateProvider";
 import Calendar from "./components/calendar/Calendar";
 import Planning from "./components/planning/Planning";
@@ -24,20 +23,27 @@ const AppContainer = styled.div`
 function App() {
   //<TagsList tags={tags}/>
   const [view, setView] = React.useState(true);
-  const [calendar, setCalendar] = React.useState(<Calendar/>);
-  const [planning, setPlanning] = React.useState(<Planning/>);
-  function changeViews(){
+  const [calendar, setCalendar] = React.useState(<Calendar />);
+  const [planning, setPlanning] = React.useState(<Planning />);
+  function changeViews() {
     setView(!view);
+  }
+  const [menuVisible, setMenuVisible] = React.useState(false);
+  function toggleMenu() {
+    setMenuVisible(!menuVisible);
   }
   return (
     <AppContainer>
-      <MenuBar changeView={changeViews} />
+      <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
+      <LeftSideMenu visible={menuVisible}>
+        <TagsList tags={tags} />
+      </LeftSideMenu>
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
 
         <DateProvider>
-        {
-          view ? calendar : planning
-        }
+          {
+            view ? calendar : planning
+          }
         </DateProvider>
       </div>
     </AppContainer>

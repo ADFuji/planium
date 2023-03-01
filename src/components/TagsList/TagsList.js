@@ -7,22 +7,20 @@ import Tag from './Tag';
  * et permettre de filtrer les événements
  */
 
-function TagsList(props){
+function TagsList(props) {
     const [checkedTags, setCheckedTags] = React.useState([]);
     const containerStyle = {
         display: "flex",
         flexDirection: "column",
-        width: "20%",
         height: "calc(100vh - 51px)",
         margin: "0",
         padding: "0",
-        backgroundColor: "grey",
     }
     const handleChange = (event) => {
         let _checkedTags = [...checkedTags];
-        if(event.checked){
+        if (event.checked) {
             _checkedTags.push(event.label);
-        }else{
+        } else {
             _checkedTags.splice(checkedTags.indexOf(event.label), 1);
         }
         setCheckedTags(_checkedTags);

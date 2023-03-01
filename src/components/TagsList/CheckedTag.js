@@ -14,7 +14,7 @@ const ContainerStyle = styled.div`
         }
     `;
 function CheckedTag(props) {
-    
+
     const labelStyle = styled.p`
         margin: 0;
         padding: 0;
