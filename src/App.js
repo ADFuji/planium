@@ -9,6 +9,7 @@ import Tag from "./components/TagsList/Tag";
 
 import { DateProvider } from "./components/calendar/DateProvider";
 import Calendar from "./components/calendar/Calendar";
+import Planning from "./components/planning/Planning";
 
 const AppContainer = styled.div`
   margin: 0;
@@ -17,16 +18,28 @@ const AppContainer = styled.div`
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 function App() {
   //<TagsList tags={tags}/>
+  const [view, setView] = React.useState(true);
+  const [calendar, setCalendar] = React.useState(<Calendar/>);
+  const [planning, setPlanning] = React.useState(<Planning/>);
+  function changeViews(){
+    setView(!view);
+  }
   return (
     <AppContainer>
-      <MenuBar />
-      <DateProvider>
-        <Calendar />
-      </DateProvider>
+      <MenuBar changeView={changeViews} />
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+
+        <DateProvider>
+        {
+          view ? calendar : planning
+        }
+        </DateProvider>
+      </div>
     </AppContainer>
   );
 }

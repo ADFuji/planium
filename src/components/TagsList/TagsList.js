@@ -12,8 +12,8 @@ function TagsList(props){
     const containerStyle = {
         display: "flex",
         flexDirection: "column",
-        width: "250px",
-        height: "100vh",
+        width: "20%",
+        height: "calc(100vh - 51px)",
         margin: "0",
         padding: "0",
         backgroundColor: "grey",
@@ -28,9 +28,8 @@ function TagsList(props){
         setCheckedTags(_checkedTags);
     }
     const listStyle = {
-        height: "70%",
-        
-        overflow: "auto",
+        height: "60%",
+        overflowY: "auto",
     }
     return (
         <div style={containerStyle}>

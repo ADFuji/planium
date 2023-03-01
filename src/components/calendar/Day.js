@@ -24,7 +24,7 @@ const day_style = {
     padding: "5px"
 };
 
-const eventWith = 2;
+const eventWith = 4;
 const eventHeight = eventWith;
 const eventMargin = 10;
 const eventPadding = 5;
@@ -49,7 +49,11 @@ const todayStyle = {
     color: "white",
     backgroundColor: "coral",
     borderRadius: "50%",
-    padding: "5px"
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "30px",
+    height: "30px",
 };
 
 function Day(props) {
@@ -77,7 +81,7 @@ function Day(props) {
 
     return (
         <DayContainer>
-            <span style={props.isToday ? todayStyle : {}}>{day}</span>
+            <span style={props.isToday ? todayStyle : {}}><p>{day}</p></span>
             <span style={hasEvent ? eventStyle : noEventStyle}></span>
         </DayContainer>
     );

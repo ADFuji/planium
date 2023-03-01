@@ -6,7 +6,7 @@ function CheckedList(props) {
         flexWrap: "wrap",
         flexDirection: "row",
         backgroundColor: "grey",
-        height: "25%",
+        height: "100px",
         marginBottom: "20px",
         overflow: "auto",
     }

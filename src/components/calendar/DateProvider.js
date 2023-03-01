@@ -55,8 +55,8 @@ function dateReducer(state, action){
 function DateProvider({children}){
     const [state, dispatch] = React.useReducer(dateReducer, {
         date: {
-            month: 1,
-            year: 2023
+            month: new Date().getMonth(),
+            year: new Date().getFullYear()
         }
     });
     const value = {state, dispatch};

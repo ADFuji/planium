@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "./Button";
 import ToggleSwitch from "./ToggleSwitch";
+import Logo from "./Logo";
 
 const MenuBarContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: 50px;
+    width: 100%;
     background-color: #f5f5f5;
     border-bottom: 1px solid #e0e0e0;
-    padding: 0 10px;
 `;
 const Icon = styled.img`
     width: 30px;
@@ -20,11 +20,13 @@ const Icon = styled.img`
 
 function MenuBar(props) {
     const [checked, setChecked] = React.useState(false);
-    function handleToggleSwitchChange(e) {
-        setChecked(e.target.checked);
+    function handleToggleSwitchChange() {
+        setChecked(!checked);
+        props.changeView();
     }
     return (
         <MenuBarContainer>
+            <Logo>Planium</Logo>
             <ToggleSwitch checked={checked} onChange={handleToggleSwitchChange} />
         </MenuBarContainer>
     );
