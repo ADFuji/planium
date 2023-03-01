@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const commonStyles = {
-    position: "fixed",
-    top: "51px",
-    bottom: "0",
-    padding: "5px",
-    width: "300px",
+    width: "0",
     transition: '0.5s',
     overflow: "hidden",
     backgroundColor: "#757575",
@@ -15,12 +11,11 @@ const commonStyles = {
 
 const visibleStyles = {
     ...commonStyles,
-    left: '0'
+    width: "20%",
 };
 
 const hiddenStyles = {
     ...commonStyles,
-    left: '-310px'
 }
 
 const LeftSideMenuContainer = styled.div`

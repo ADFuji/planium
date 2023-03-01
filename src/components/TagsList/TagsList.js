@@ -28,6 +28,7 @@ function TagsList(props) {
     const listStyle = {
         height: "60%",
         overflowY: "auto",
+        overflowX: "hidden",
     }
     return (
         <div style={containerStyle}>

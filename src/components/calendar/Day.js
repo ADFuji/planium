@@ -3,8 +3,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const DayContainer = styled.div`
-    width: 100%;
-    height: 70px;
+    width: calc(100% / 7);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

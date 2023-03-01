@@ -35,11 +35,11 @@ function App() {
   return (
     <AppContainer>
       <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
-      <LeftSideMenu visible={menuVisible}>
-        <TagsList tags={tags} />
-      </LeftSideMenu>
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
 
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row" }}>
+        <LeftSideMenu visible={menuVisible}>
+          <TagsList tags={tags} />
+        </LeftSideMenu>
         <DateProvider>
           {
             view ? calendar : planning

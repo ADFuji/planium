@@ -34,11 +34,11 @@ const WeekContainer = styled.div`
     padding: 0;
     margin: 0;
     width: 100%;
+    height: calc(800px / 6);
 `;
 
 const DayContainer = styled.div`
-    width: 100%;
-    height: 80px;
+    width: calc(100% / 7);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -56,20 +56,20 @@ function Week(props) {
     const [month, setMonth] = React.useState(props.month);
     const [year, setYear] = React.useState(props.year);
     //use the date context to get the current date
-    const {state, dispatch} = React.useContext(DateContext);
+    const { state, dispatch } = React.useContext(DateContext);
 
 
-    
+
     const firstDayIndex = getFirstDayOfTheMonth(new Date(state.date.year, state.date.month, 1));
     let days = [];
-    for(let i=0;i<7;i++){
+    for (let i = 0; i < 7; i++) {
         const isToday = (() => {
             if (TODAY.getMonth() == state.date.month && TODAY.getFullYear() == state.date.year && (i + firstDay - firstDayIndex) > 0 && (i + firstDay - firstDayIndex) == TODAY.getDate()) {
                 return true;
             }
             return false;
         })();
-        days.push(<Day isToday={isToday} day={i+firstDay-firstDayIndex>0?i+firstDay-firstDayIndex:0} month={state.date.month} year={state.date.year} hasEvent={hasEvents(new Date(state.date.year, state.date.month, i+firstDay-firstDayIndex>0?i+firstDay-firstDayIndex:""))}></Day>);
+        days.push(<Day isToday={isToday} day={i + firstDay - firstDayIndex > 0 ? i + firstDay - firstDayIndex : 0} month={state.date.month} year={state.date.year} hasEvent={hasEvents(new Date(state.date.year, state.date.month, i + firstDay - firstDayIndex > 0 ? i + firstDay - firstDayIndex : ""))}></Day>);
     }
     return (
         <WeekContainer>
