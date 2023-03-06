@@ -15,24 +15,27 @@ const EventsContainer = styled.div`
     border-bottom: 1px solid #e0e0e0;
     overflow-y: scroll;
 `;
-const _events = ((events) => {
-    let ret = [];
-    events.forEach((event) => {
-        const title = event.title;
-        let description = event.description;
-        try {
-            console.log(description["fr"]);
-        }
-        catch (e) {
-            description = { fr: "No description" };
-        }
-        const firstDate = event.firstDate;
-        const lastDate = event.lastDate;
-        ret.push(<Event title={title["fr"]} description={description["fr"]} firstDate={new Date(firstDate).toLocaleDateString()} lastDate={new Date(lastDate).toLocaleDateString()} />);
-    })
-    return ret
-})(events)
 function Events(props) {
+    function handleClick(e) {
+        props.onEventClick(e);
+    }
+    const _events = ((events) => {
+        let ret = [];
+        events.forEach((event) => {
+            const title = event.title;
+            let description = event.description;
+            try {
+                console.log(description["fr"]);
+            }
+            catch (e) {
+                description = { fr: "No description" };
+            }
+            const firstDate = event.firstDate;
+            const lastDate = event.lastDate;
+            ret.push(<Event title={title["fr"]} description={description["fr"]} firstDate={new Date(firstDate).toLocaleDateString()} lastDate={new Date(lastDate).toLocaleDateString()} onEventClick={handleClick} />);
+        })
+        return ret
+    })(events)
     return (
         <EventsContainer>
             {_events}

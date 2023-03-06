@@ -19,8 +19,8 @@ const CalendarContainer = styled.div`
     background-color: rgb(250,250,250);
     color: rgb(80,80,80);
     width: 100%;
-    min-width: 300px;
     max-width: 100vw;
+    max-height: 100vh;
     user-select: none;
 `;
 const TODAY = new Date();

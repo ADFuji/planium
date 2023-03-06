@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { AppProvider } from "./components/AppProvider";
+
 import MenuBar from "./components/MenuBar";
 import LeftSideMenu from "./components/LeftSideMenu";
 import tags from "./ParseJSON";
@@ -32,11 +34,31 @@ function App() {
   function toggleMenu() {
     setMenuVisible(!menuVisible);
   }
+
+  return (
+    <AppProvider>
+      <AppContainer>
+        <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
+        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
+          <LeftSideMenu visible={menuVisible}>
+            <TagsList tags={tags} />
+          </LeftSideMenu>
+          <DateProvider>
+            {
+              view ? calendar : planning
+            }
+          </DateProvider>
+        </div>
+      </AppContainer>
+    </AppProvider>
+  );
+
+  /*
   return (
     <AppContainer>
       <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
 
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
         <LeftSideMenu visible={menuVisible}>
           <TagsList tags={tags} />
         </LeftSideMenu>
@@ -47,7 +69,7 @@ function App() {
         </DateProvider>
       </div>
     </AppContainer>
-  );
+  );*/
 }
 
 export default App;

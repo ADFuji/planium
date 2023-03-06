@@ -42,8 +42,11 @@ const EventDate = styled.p`
 `;
 
 function Event(props) {
+    function handleEventClick(e) {
+        props.onEventClick(<EventDetails title={props.title} description={props.description} />);
+    }
     return (
-        <EventContainer>
+        <EventContainer onClick={handleEventClick}>
             <VerticalDiv>
                 <EventDate>{props.firstDate}</EventDate>
                 <EventDate>{props.lastDate}</EventDate>

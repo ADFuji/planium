@@ -34,7 +34,7 @@ const WeekContainer = styled.div`
     padding: 0;
     margin: 0;
     width: 100%;
-    height: calc(800px / 6);
+    height: calc(100% / 6);
 `;
 
 const DayContainer = styled.div`

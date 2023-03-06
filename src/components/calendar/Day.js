@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const DayContainer = styled.div`
     width: calc(100% / 7);
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import Events from "./Events";
+import { EventDetails } from "../Event";
+
 
 const PlanningContainer = styled.div`
     display: flex;
@@ -13,13 +15,20 @@ const PlanningContainer = styled.div`
     max-width: 100vw;
     user-select: none;
 `;
-
 function Planning(props) {
+    const [details, setDetails] = React.useState(null) // [this.state.details, this.setState({ details: e })
+    function handleEventClick(e) {
+        setDetails(e);
+    }
     return (
-        <PlanningContainer>
-            <Header />
-            <Events />
-        </PlanningContainer>
+        <React.Fragment>
+            <PlanningContainer>
+                <Header />
+                <Events onEventClick={handleEventClick} />
+
+            </PlanningContainer>
+            {details}
+        </React.Fragment>
     )
 }
 

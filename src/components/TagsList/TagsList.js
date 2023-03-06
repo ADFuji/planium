@@ -1,4 +1,7 @@
-import React from 'react';
+import React from "react";
+import { useState, useEffect, setState, useRef, useCallback } from "react";
+
+import { AppContext, AppInitialState } from '../AppProvider';
 import CheckedList from './CheckedList';
 import Tag from './Tag';
 /**
@@ -8,36 +11,10 @@ import Tag from './Tag';
  */
 
 function TagsList(props) {
-    const [checkedTags, setCheckedTags] = React.useState([]);
-    const containerStyle = {
-        display: "flex",
-        flexDirection: "column",
-        height: "calc(100vh - 51px)",
-        margin: "0",
-        padding: "0",
-    }
-    const handleChange = (event) => {
-        let _checkedTags = [...checkedTags];
-        if (event.checked) {
-            _checkedTags.push(event.label);
-        } else {
-            _checkedTags.splice(checkedTags.indexOf(event.label), 1);
-        }
-        setCheckedTags(_checkedTags);
-    }
-    const listStyle = {
-        height: "60%",
-        overflowY: "auto",
-        overflowX: "hidden",
-    }
+    const { state, dispatch } = React.useContext(AppContext);
+    console.log(state);
     return (
-        <div style={containerStyle}>
-            <CheckedList checkedTags={checkedTags} />
-            <div className="tags" style={listStyle}>
-                {props.tags.map((tag) => (
-                    <Tag label={tag} onChange={handleChange} />
-                ))}
-            </div>
+        <div className="tags-list">
         </div>
     );
 }
