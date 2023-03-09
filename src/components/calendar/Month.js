@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { DateContext, dateReducer } from './DateProvider';
+import { AppContext } from '../../AppProvider';
 import Week from './Week';
 
 const MonthContainer = styled.div`
@@ -12,7 +12,7 @@ const MonthContainer = styled.div`
 `;
 
 function Month(props) {
-    const { state, dispatch } = React.useContext(DateContext);
+    const { state, dispatch } = React.useContext(AppContext);
     const [weeks, setWeeks] = React.useState([]);
 
     useEffect(() => {

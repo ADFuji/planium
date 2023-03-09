@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useReducer } from 'react';
 import styled from 'styled-components';
-
+import { AppContext } from '../../AppProvider';
 import { getMonth } from './DateProcess';
 
 import Button from "../Button";
@@ -26,6 +26,7 @@ const SelectContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 `;
 
 const DaysContainer = styled.div`
@@ -36,40 +37,62 @@ const DaysContainer = styled.div`
 `;
 
 const Day = styled.div`
-    font-size: 1.2rem;
     text-align: center;
     width: 100%;
     height: 20%;
+    @media (min-width: 320px) {
+        font-size: 1rem;
+    }
+    @media (min-width: 1920px) {
+        font-size: 1.5rem;
+    }
+    @media (min-width: 2400px) {
+        font-size: 1.6rem;
+    }
 `;
 
 const controlsSpanStyle = {
     margin: "0px 5px",
     padding: "5px 10px",
-    fontSize: "1.2rem",
+    fontSize: "1rem",
     borderRadius: "5px",
 };
+const ControlSpan = styled.span`
+    margin: 0px 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    @media (min-width: 320px) {
+        font-size: 1rem;
+    }
+    @media (min-width: 1920px) {
+        font-size: 1.6rem;
+    }
+    @media (min-width: 2400px) {
+        font-size: 2rem;
+    }
+    
+`;
 const days = {
     fr: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
     en: ["Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun."],
 }
 
 function Header(props) {
-    const { state, dispatch } = useContext(DateContext);
-    const language = "fr";
+    const { state, dispatch } = useContext(AppContext);
 
     return (
         <HeaderContainer>
             <ControlsContainer>
-                <span style={controlsSpanStyle}> {getMonth(state.date.month)} - {state.date.year}</span>
+                <ControlSpan> {getMonth(state.lang, state.date.month)} - {state.date.year}</ControlSpan>
                 <SelectContainer>
                     <Button onClick={() => dispatch({ type: 'prevMonth' })}>&lt;</Button>
-                    <Button onClick={() => { }}>Aujourd'hui</Button>
-                    <Button onClick={() => dispatch({ type: 'nextMonth' })}>></Button>
+                    <Button onClick={() => { }}>{state.lang === "fr" ? "Aujourd'hui" : "Today"}</Button>
+                    <Button onClick={() => dispatch({ type: 'nextMonth' })}>&gt;</Button>
                 </SelectContainer>
             </ControlsContainer>
             <DaysContainer>
                 {
-                    days[language].map((day) => {
+                    days[state.lang].map((day) => {
                         return <Day>{day}</Day>
                     })
                 }

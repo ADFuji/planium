@@ -1,4 +1,4 @@
-function getMonth(month) {
+function getMonth(lang, month) {
     const months = {
         fr: [
             "Janvier",
@@ -29,7 +29,7 @@ function getMonth(month) {
             "December"
         ]
     };
-    return months["fr"][month];
+    return months[lang][month];
 }
 
 export { getMonth }

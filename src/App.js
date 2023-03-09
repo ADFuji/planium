@@ -20,8 +20,20 @@ const AppContainer = styled.div`
   align-items: center;
 `;
 
+const AppDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  @media (min-width: 320px) {
+    flex-direction: column;
+  }
+  @media (min-width: 1920px) {
+    flex-direction: row;
+  }
+`;
+
 function App() {
-  //<TagsList tags={tags}/>
   const [view, setView] = React.useState(true);
   const [calendar, setCalendar] = React.useState(<Calendar />);
   const [planning, setPlanning] = React.useState(<Planning />);
@@ -34,20 +46,32 @@ function App() {
   }
 
   return (
-      <AppContainer>
-        <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
-        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
-          <LeftSideMenu visible={menuVisible}>
-            <h1>T</h1>
-            <TagsList tags={tags} />
-          </LeftSideMenu>
-          <DateProvider>
-            {
-              view ? calendar : planning
-            }
-          </DateProvider>
-        </div>
-      </AppContainer>
+    <AppContainer>
+      <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
+      <AppDiv>
+        <LeftSideMenu visible={menuVisible}>
+          <div className="tags-list">
+            <Tag name="All" />
+            <Tag name="Work" />
+            <Tag name="Home" />
+            <Tag name="School" />
+            <Tag name="Personal" />
+          </div>
+          <div className="footer">
+            <ul>
+              <li>Settings</li>
+              <li>Help</li>
+              <li>About</li>
+            </ul>
+          </div>
+        </LeftSideMenu>
+        <DateProvider>
+          {
+            view ? calendar : planning
+          }
+        </DateProvider>
+      </AppDiv>
+    </AppContainer>
   );
 
   /*

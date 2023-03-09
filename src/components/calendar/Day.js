@@ -3,8 +3,22 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const DayContainer = styled.div`
+    @media (min-width: 320px) {
+        height: 45px;
+    }
+    @media (min-width: 768px) {
+        height: 60px;
+    }
+    @media (min-width: 1024px) {
+        height: 50px;
+    }
+    @media (min-width: 1920px) {
+        height: 136px;
+    }
+    @media (min-width: 2400px) {
+        height: 195px;
+    }
     width: calc(100% / 7);
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -26,24 +40,43 @@ const day_style = {
 
 const eventWith = 5;
 const eventHeight = eventWith;
-const eventMargin = 10;
+const eventMargin = 5;
 const eventPadding = 2;
-const eventStyle = {
-    width: `${eventWith}px`,
-    height: `${eventHeight}px`,
-    borderRadius: "50%",
-    backgroundColor: "rgb(120,120,120)",
-    marginTop: `${eventMargin}px`,
-    padding: `${eventPadding}px`
-};
-
-const noEventStyle = {
-    width: `${eventWith}px`,
-    height: `${eventHeight}px`,
-    borderRadius: "50%",
-    marginTop: `${eventMargin}px`,
-    padding: `${eventPadding}px`
-};
+const WithEvent = styled.div`
+    @media (min-width: 320px) {
+        width: ${eventWith - 2}px;
+        height: ${eventHeight - 2}px;
+    }
+    @media (min-width: 768px) {
+        width: ${eventWith}px;
+        height: ${eventHeight}px;
+    }
+    @media (min-width: 1024px) {
+        width: ${eventWith + 2}px;
+        height: ${eventHeight + 2}px;
+    }
+    border-radius: 50%;
+    background-color: rgb(120,120,120);
+    margin-top: ${eventMargin}px;
+    padding: ${eventPadding}px;
+`;
+const NoEvent = styled.div`
+    @media (min-width: 320px) {
+        width: ${eventWith - 2}px;
+        height: ${eventHeight - 2}px;
+    }
+    @media (min-width: 768px) {
+        width: ${eventWith}px;
+        height: ${eventHeight}px;
+    }
+    @media (min-width: 1024px) {
+        width: ${eventWith + 2}px;
+        height: ${eventHeight + 2}px;
+    }
+    border-radius: 50%;
+    margin-top: ${eventMargin}px;
+    padding: ${eventPadding}px;
+`;
 
 const todayStyle = {
     color: "white",
@@ -64,6 +97,56 @@ const notTodayStyle = {
     width: "30px",
     height: "30px",
 };
+
+const Today = styled.span`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: coral;
+    color: white;
+    @media (min-width: 320px) {
+        width: 30px;
+        height: 30px;
+    }
+    @media (min-width: 768px) {
+        width: 40px;
+        height: 40px;
+    }
+    @media (min-width: 1024px) {
+        width: 50px;
+        height: 50px;
+    }
+    @media (min-width: 1400px) {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+`;
+
+const NotToday = styled.span`
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: 320px) {
+        width: 30px;
+        height: 30px;
+    }
+    @media (min-width: 768px) {
+        width: 40px;
+        height: 40px;
+    }
+    @media (min-width: 1024px) {
+        width: 50px;
+        height: 50px;
+    }
+    @media (min-width: 1400px) {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+`;
 
 function Day(props) {
     const [day, setDay] = React.useState(props.day);
@@ -90,8 +173,8 @@ function Day(props) {
 
     return (
         <DayContainer>
-            <span style={props.isToday ? todayStyle : notTodayStyle}><p>{day}</p></span>
-            <span style={hasEvent ? eventStyle : noEventStyle}></span>
+            {props.isToday ? <Today>{day}</Today> : <NotToday>{day}</NotToday>}
+            {hasEvent ? <WithEvent /> : <NoEvent />}
         </DayContainer>
     );
 

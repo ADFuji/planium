@@ -34,7 +34,7 @@ function Events(props) {
             }
             const firstDate = event.firstDate;
             const lastDate = event.lastDate;
-            ret.push(<Event title={title[state.lang]?title[state.lang]:title["fr"]} description={description[state.lang]?description[state.lang]:description["fr"]} firstDate={new Date(firstDate).toLocaleDateString()} lastDate={new Date(lastDate).toLocaleDateString()} onEventClick={handleClick} />);
+            ret.push(<Event title={title[state.lang] ? title[state.lang] : title["fr"]} description={description[state.lang] ? description[state.lang] : description["fr"]} firstDate={new Date(firstDate).toLocaleDateString()} lastDate={new Date(lastDate).toLocaleDateString()} onEventClick={handleClick} />);
         })
         return ret
     })(events)

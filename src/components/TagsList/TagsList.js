@@ -19,6 +19,14 @@ function TagsList(props) {
     console.log(state);
     return (
         <div className="tags-list" style={s}>
+            <Tag name="Tous" />
+            <Tag name="Travail" />
+            <Tag name="Famille" />
+            <Tag name="Amis" />
+            <Tag name="Sport" />
+            <Tag name="Cours" />
+            <Tag name="Loisirs" />
+            <Tag name="Autres" />
         </div>
     );
 }

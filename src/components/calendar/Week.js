@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
 import Day from "./Day";
 import { events, hasEvents } from "../../ParseJSON";
-import { DateContext, dateReducer } from "./DateProvider";
+import { AppContext } from "../../AppProvider";
 
 
 function getNumberOfDays(month, year) {
@@ -57,7 +57,7 @@ function Week(props) {
     const [month, setMonth] = React.useState(props.month);
     const [year, setYear] = React.useState(props.year);
     //use the date context to get the current date
-    const { state, dispatch } = React.useContext(DateContext);
+    const { state, dispatch } = React.useContext(AppContext);
 
 
 

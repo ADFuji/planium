@@ -42,7 +42,7 @@ const EventDate = styled.p`
 `;
 const EventDisplayContainer = styled.div`
     display: flex;
-    width: 30%;
+    width: 20%;
     height: 100px;
     flex-direction: row;
     margin: 0;
@@ -51,6 +51,7 @@ const EventDisplayContainer = styled.div`
         background-color: rgba(0,0,0,0.05);
         cursor: pointer;
     }
+    transition: all 0.5s ease;
 `;
 function Event(props) {
     function handleEventClick(e) {
