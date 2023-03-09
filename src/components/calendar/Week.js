@@ -34,11 +34,12 @@ const WeekContainer = styled.div`
     padding: 0;
     margin: 0;
     width: 100%;
-    height: calc(100% / 6);
+    height: 20%;
 `;
 
 const DayContainer = styled.div`
     width: calc(100% / 7);
+    height: 20%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

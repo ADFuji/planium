@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { AppProvider } from "./components/AppProvider";
-
 import MenuBar from "./components/MenuBar";
 import LeftSideMenu from "./components/LeftSideMenu";
 import tags from "./ParseJSON";
@@ -36,11 +34,11 @@ function App() {
   }
 
   return (
-    <AppProvider>
       <AppContainer>
         <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
         <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
           <LeftSideMenu visible={menuVisible}>
+            <h1>T</h1>
             <TagsList tags={tags} />
           </LeftSideMenu>
           <DateProvider>
@@ -50,7 +48,6 @@ function App() {
           </DateProvider>
         </div>
       </AppContainer>
-    </AppProvider>
   );
 
   /*

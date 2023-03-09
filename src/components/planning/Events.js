@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { AppContext } from "../../AppProvider";
 import { events } from '../../ParseJSON';
 import Event, { EventDetails } from '../Event';
 
@@ -16,6 +17,7 @@ const EventsContainer = styled.div`
     overflow-y: scroll;
 `;
 function Events(props) {
+    const { state, dispatch } = React.useContext(AppContext);
     function handleClick(e) {
         props.onEventClick(e);
     }
@@ -25,14 +27,14 @@ function Events(props) {
             const title = event.title;
             let description = event.description;
             try {
-                console.log(description["fr"]);
+                console.log(description[state.lang]);
             }
             catch (e) {
                 description = { fr: "No description" };
             }
             const firstDate = event.firstDate;
             const lastDate = event.lastDate;
-            ret.push(<Event title={title["fr"]} description={description["fr"]} firstDate={new Date(firstDate).toLocaleDateString()} lastDate={new Date(lastDate).toLocaleDateString()} onEventClick={handleClick} />);
+            ret.push(<Event title={title[state.lang]?title[state.lang]:title["fr"]} description={description[state.lang]?description[state.lang]:description["fr"]} firstDate={new Date(firstDate).toLocaleDateString()} lastDate={new Date(lastDate).toLocaleDateString()} onEventClick={handleClick} />);
         })
         return ret
     })(events)

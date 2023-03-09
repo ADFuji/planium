@@ -8,7 +8,7 @@ const MonthContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 70%;
 `;
 
 function Month(props) {
@@ -28,17 +28,5 @@ function Month(props) {
             {weeks}
         </MonthContainer>
     );
-
-    /*
-    return (
-        <MonthContainer>
-            <Week firstWeek={true} lastWeek={false} firstDay={1} month={props.previous ? state.date.month -1 : props.next ? state.date.month + 1 : state.date.month} year={state.date.year} />
-            <Week firstWeek={false} lastWeek={false} firstDay={8} month={props.previous ? state.date.month -1 : props.next ? state.date.month + 1 : state.date.month} year={state.date.year} />
-            <Week firstWeek={false} lastWeek={false} firstDay={15} month={props.previous ? state.date.month -1 : props.next ? state.date.month + 1 : state.date.month} year={state.date.year} />
-            <Week firstWeek={false} lastWeek={false} firstDay={22} month={props.previous ? state.date.month -1 : props.next ? state.date.month + 1 : state.date.month} year={state.date.year} />
-            <Week firstWeek={false} lastWeek={false} firstDay={29} month={props.previous ? state.date.month -1 : props.next ? state.date.month + 1 : state.date.month} year={state.date.year} />
-            <Week firstWeek={false} lastWeek={true} firstDay={36} month={props.previous ? state.date.month -1 : props.next ? state.date.month + 1 : state.date.month} year={state.date.year} />
-        </MonthContainer>
-    );*/
 }
 export default Month;

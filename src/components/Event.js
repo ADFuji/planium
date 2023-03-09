@@ -40,7 +40,18 @@ const EventDate = styled.p`
     font-weight: 300;
     font-style: italic;
 `;
-
+const EventDisplayContainer = styled.div`
+    display: flex;
+    width: 30%;
+    height: 100px;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    &:hover {
+        background-color: rgba(0,0,0,0.05);
+        cursor: pointer;
+    }
+`;
 function Event(props) {
     function handleEventClick(e) {
         props.onEventClick(<EventDetails title={props.title} description={props.description} />);
@@ -61,12 +72,12 @@ function Event(props) {
 
 function EventDetails(props) {
     return (
-        <EventContainer>
+        <EventDisplayContainer>
             <VerticalDiv>
                 <EventTitle>{props.title}</EventTitle>
                 <EventDescription>{props.description}</EventDescription>
             </VerticalDiv>
-        </EventContainer>
+        </EventDisplayContainer>
     )
 }
 
