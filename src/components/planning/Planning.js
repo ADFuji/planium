@@ -1,6 +1,5 @@
 import React, { Fragment, useContext } from "react";
 import styled from "styled-components";
-import Header from "./Header";
 import Events from "./Events";
 import { EventDetails } from "../Event";
 
@@ -21,11 +20,13 @@ function Planning(props) {
     return (
         <React.Fragment>
             <PlanningContainer>
-                <Header />
-                <Events onEventClick={handleEventClick} />
 
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                    <Events onEventClick={handleEventClick} />
+                    {details}
+                </div>
             </PlanningContainer>
-            {details}
+
         </React.Fragment>
     )
 }

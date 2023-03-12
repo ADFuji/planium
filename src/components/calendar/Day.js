@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 
 import styled from "styled-components";
-
+import { events_all } from "../../ParseJSON";
 const DayContainer = styled.div`
     @media (min-width: 320px) {
         height: 45px;
     }
-    @media (min-width: 768px) {
-        height: 60px;
+    @media (min-width: 1280px) {
+        height: 99px;
     }
-    @media (min-width: 1024px) {
-        height: 50px;
+    @media (min-width: 1366px) {
+        height: 88px;
     }
     @media (min-width: 1920px) {
         height: 136px;

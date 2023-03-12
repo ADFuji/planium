@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-
+import { AppContext } from "./AppProvider";
 import MenuBar from "./components/MenuBar";
 import LeftSideMenu from "./components/LeftSideMenu";
-import tags from "./ParseJSON";
+
 import TagsList from "./components/TagsList/TagsList";
-import Tag from "./components/TagsList/Tag";
 import { DateProvider } from "./components/calendar/DateProvider";
 import Calendar from "./components/calendar/Calendar";
 import Planning from "./components/planning/Planning";
@@ -28,6 +27,9 @@ const AppDiv = styled.div`
   @media (min-width: 320px) {
     flex-direction: column;
   }
+  @media (min-width: 700px) {
+    flex-direction: row;
+  }
   @media (min-width: 1920px) {
     flex-direction: row;
   }
@@ -37,6 +39,7 @@ function App() {
   const [view, setView] = React.useState(true);
   const [calendar, setCalendar] = React.useState(<Calendar />);
   const [planning, setPlanning] = React.useState(<Planning />);
+  const { state } = React.useContext(AppContext);
   function changeViews() {
     setView(!view);
   }
@@ -51,11 +54,7 @@ function App() {
       <AppDiv>
         <LeftSideMenu visible={menuVisible}>
           <div className="tags-list">
-            <Tag name="All" />
-            <Tag name="Work" />
-            <Tag name="Home" />
-            <Tag name="School" />
-            <Tag name="Personal" />
+            <TagsList />
           </div>
           <div className="footer">
             <ul>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import tags from "./ParseJSON";
 const initAppContext = {
     date: {
         month: new Date().getMonth(),
@@ -7,7 +7,7 @@ const initAppContext = {
     },
     lang: "fr",
     theme: "light",
-    tags: [],
+    tags: []
 };
 
 const AppContext = React.createContext(initAppContext);
@@ -24,6 +24,13 @@ function AppReducer(state, action) {
             return { ...state, theme: action.payload };
         case "SET_TAGS":
             return { ...state, tags: action.payload };
+        case "ADD_TAG":
+            return { ...state, tags: [...state.tags, action.payload] };
+        case "REMOVE_TAG":
+            return {
+                ...state,
+                tags: state.tags.filter((tag) => tag !== action.payload),
+            };
         case 'nextMonth': {
             if (state.date.month === 11) {
                 return {

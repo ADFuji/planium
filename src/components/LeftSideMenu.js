@@ -6,24 +6,32 @@ const DIV = styled.div`
         position: fixed;
         transition: width 0.5s, height 0.5s;
     }
-    @media (min-width: 1920px) {
+    @media (min-width: 700px) {
         position: relative;
         height: calc(100vh - 51px);
         transition: width 0.5s, height 0.5s;
     }
+    @media (min-width: 1920px) {
+        
+    }
     width: 0;
     height: 0;
     overflow: hidden;
-    background-color: #757575;
+    background-color: #05595e;
     
     ${props => !props.visible}{
         @media (min-width: 320px) {
             width: 100%;
             height: calc(100vh - 51px);
         }
-        @media (min-width: 1920px) {
-            width: 15%;
+        @media (min-width: 700px) {
+            width: 20%;
             height: calc(100vh - 51px);
+        }
+        @media (min-width: 1920px) {
+            width: 20%;
+            height: calc(100vh - 51px);
+            transition: width 0.5s, height 0.5s;
         }
         
     }
@@ -31,6 +39,7 @@ const DIV = styled.div`
     flex-direction: column;
     justify-content: space-between;
     ul{
+        color: white;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -39,7 +48,7 @@ const DIV = styled.div`
             padding: 10px;
             margin: 0;
             &:hover{
-                background-color: rgba(0,0,0,0.05);
+                background-color: rgba(256,256,256,0.3);
                 cursor: pointer;
             }
         }

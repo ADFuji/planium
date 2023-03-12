@@ -28,7 +28,7 @@ const ToggleSwitchInput = styled.input`
     width: 0;
     height: 0;
 `;
-ToggleSwitchInput.onChange = function(e) {
+ToggleSwitchInput.onChange = function (e) {
     e()
 }
 const Icon = styled.img`
@@ -82,7 +82,6 @@ function ToggleSwitch(props) {
     const [checked, setChecked] = React.useState(false);
     const [icon, setIcon] = React.useState(iconCalendar);
     function handleToggleSwitchChange(e) {
-        console.log(e.target.checked);
         setChecked(e.target.checked);
         setIcon(e.target.checked ? iconList : iconCalendar);
         props.onChange(e.target.checked);

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
 import Day from "./Day";
-import { events, hasEvents } from "../../ParseJSON";
+import { events_all } from "../../ParseJSON";
 import { AppContext } from "../../AppProvider";
 
 
@@ -70,7 +70,7 @@ function Week(props) {
             }
             return false;
         })();
-        days.push(<Day isToday={isToday} day={i + firstDay - firstDayIndex > 0 ? i + firstDay - firstDayIndex : 0} month={state.date.month} year={state.date.year} hasEvent={hasEvents(new Date(state.date.year, state.date.month, i + firstDay - firstDayIndex > 0 ? i + firstDay - firstDayIndex : ""))}></Day>);
+        days.push(<Day isToday={isToday} day={i + firstDay - firstDayIndex > 0 ? i + firstDay - firstDayIndex : 0} month={state.date.month} year={state.date.year} hasEvent={events_all.has(state.date.year) && events_all.get(state.date.year).has(state.date.month) && events_all.get(state.date.year).get(state.date.month).has(i + firstDay - firstDayIndex > 0 ? i + firstDay - firstDayIndex : 0)} />);
     }
     return (
         <WeekContainer>
