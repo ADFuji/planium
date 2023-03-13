@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { events_all } from "../../ParseJSON";
 import { CalendarContext } from "./CalendarProvider";
+import { EventDetails } from "../Event";
+import { EventLine } from "./List";
 const DayContainer = styled.div`
     @media (min-width: 320px) {
         height: 45px;
@@ -31,11 +34,6 @@ const DayContainer = styled.div`
         cursor: pointer;
     }
 `;
-
-const day_style = {
-    borderRadius: "50%",
-    padding: "5px"
-};
 
 const eventWith = 5;
 const eventHeight = eventWith;
@@ -76,26 +74,6 @@ const NoEvent = styled.span`
     margin-top: ${eventMargin}px;
     padding: ${eventPadding}px;
 `;
-
-const todayStyle = {
-    color: "white",
-    backgroundColor: "coral",
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "30px",
-    height: "30px",
-};
-const notTodayStyle = {
-    backgroundColor: "transparent",
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "30px",
-    height: "30px",
-};
 
 const Today = styled.span`
     display: flex;
@@ -146,26 +124,17 @@ const NotToday = styled.span`
         font-size: 2rem;
     }
 `;
-
-const EventsModal = styled.div`
-    position: absolute;
-    top: ${props => props.top}px;
-    left: ${props => props.left}px;
-    width: 200px;
-    height: 200px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    z-index: 100;
+const EventsContainer = styled.div`
+    height: 100%;
+    width: 100%;
 `;
 
 function Day(props) {
-    const { state, dispatch } = React.useContext(CalendarContext);
+    const { dispatch } = React.useContext(CalendarContext);
     const [day, setDay] = React.useState(props.day);
     const [month, setMonth] = React.useState(props.month);
     const [year, setYear] = React.useState(props.year);
     const [hasEvent, setHasEvent] = React.useState(props.hasEvent);
-    const [test, setTest] = React.useState(<span style={{ position: "absolute", top: "0", left: "0" }}></span>);
 
     useEffect(() => {
         setDay(props.day);
@@ -175,7 +144,7 @@ function Day(props) {
     }, [props.day, props.month, props.year, props.hasEvent]);
 
     const date = new Date(year, month, day);
-    if (date.getMonth() != month) {
+    if (date.getMonth() !== month) {
         return (
             <DayContainer>
                 <span></span>
@@ -184,21 +153,39 @@ function Day(props) {
         );
     }
 
+
+
     function displayEvents(e) {
-        console.log("displayEvents", e);
-        let x, y;
-        if (e.target.tagName === "SPAN") {
-            x = e.target.parentElement.offsetLeft;
-            y = e.target.parentElement.offsetTop;
+        function setDetails(props) {
+            const p = {
+                title: props.title["fr"],
+                description: props.description["fr"],
+                thumbnail: props.image,
+                firstDate: props.firstDate,
+                lastDate: props.lastDate,
+                firstTimeStart: props.firstTimeStart,
+                firstTimeEnd: props.firstTimeEnd,
+                address: props.address,
+                postalCode: props.postalCode,
+                city: props.city,
+                department: props.department,
+                region: props.region,
+            }
+            const _ret = <EventDetails props={p} onEventClose={() => dispatch({ type: "SET_DETAIL", payload: null })} />;
+            dispatch({ type: "SET_DETAIL", payload: _ret });
         }
-        //if the target is a div, get the top and left of the target
-        if (e.target.tagName === "DIV") {
-            x = e.target.offsetLeft;
-            y = e.target.offsetTop;
-        }
-        document.getElementById("eventsModal").style.top = y + 100 + "px";
-        document.getElementById("eventsModal").style.left = x + 50 + "px";
-        document.getElementById("eventsModal").style.display = "block";
+        //find events for this day
+        const events = events_all.get(year).get(month).get(day);
+        let ret = [];
+        events.forEach((event) => {
+            ret.push(
+                <EventLine onClick={() => setDetails(event)} _event={event}
+                >{event.title["fr"]}</EventLine>
+            );
+        });
+        const _ret = <EventsContainer>{ret}</EventsContainer>;
+        dispatch({ type: "SET_EVENTS", payload: _ret });
+
     }
 
     return (

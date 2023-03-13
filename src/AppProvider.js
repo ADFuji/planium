@@ -1,5 +1,4 @@
 import React from "react";
-import tags from "./ParseJSON";
 const initAppContext = {
     date: {
         month: new Date().getMonth(),
@@ -71,8 +70,17 @@ function AppReducer(state, action) {
                 }
             }
         }
+        case 'SET_DATE_TO_TODAY': {
+            return {
+                ...state,
+                date: {
+                    month: new Date().getMonth(),
+                    year: new Date().getFullYear()
+                }
+            }
+        }
         default:
-            return state;
+            throw new Error(`Unhandled action type: ${action.type}`);
     }
 }
 export { initAppContext, AppContext, AppReducer };

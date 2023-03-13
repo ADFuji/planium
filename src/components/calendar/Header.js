@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useReducer } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../../AppProvider';
 import { getMonth } from './DateProcess';
@@ -49,12 +49,6 @@ const Day = styled.div`
     }
 `;
 
-const controlsSpanStyle = {
-    margin: "0px 5px",
-    padding: "5px 10px",
-    fontSize: "1rem",
-    borderRadius: "5px",
-};
 const ControlSpan = styled.span`
     margin: 0px 5px;
     padding: 5px 10px;
@@ -84,7 +78,7 @@ function Header(props) {
                 <ControlSpan> {getMonth(state.lang, state.date.month)} - {state.date.year}</ControlSpan>
                 <SelectContainer>
                     <Button onClick={() => dispatch({ type: 'prevMonth' })}>&lt;</Button>
-                    <Button onClick={() => { }}>{state.lang === "fr" ? "Aujourd'hui" : "Today"}</Button>
+                    <Button onClick={() => dispatch({ type: 'SET_DATE_TO_TODAY' })}>{state.lang === "fr" ? "Aujourd'hui" : "Today"}</Button>
                     <Button onClick={() => dispatch({ type: 'nextMonth' })}>&gt;</Button>
                 </SelectContainer>
             </ControlsContainer>

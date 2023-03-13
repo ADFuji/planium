@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import Events from "./Events";
 

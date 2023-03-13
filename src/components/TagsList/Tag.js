@@ -6,6 +6,7 @@ const Container = styled.div`
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
+    color: black;
     padding: 10px;
     margin: 5px;
     min-height: 30px;
@@ -45,7 +46,7 @@ function Tag(props) {
         }
     }
     return (
-        <Container onClick={toggleSelected} active={selected}>
+        <Container onClick={toggleSelected} active={selected} theme={props.theme}>
             <div>
                 <Checkbox type="checkbox" checked={selected} readOnly />
                 {props.name}

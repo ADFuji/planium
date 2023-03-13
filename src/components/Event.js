@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { AppContext } from "../AppProvider";
 const VerticalDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -25,6 +25,10 @@ const EventContainer = styled.div`
     @media (min-width: 320px) {
         width: 100%;
         height: max-content;
+    }
+    @media (min-width: 1920px) {
+        width: 100%;
+        height: 130px;
     }
 `;
 const EventTitle = styled.h1`
@@ -59,7 +63,6 @@ const EventDate = styled.p`
     font-weight: 300;
     font-style: italic;
 `;
-
 const Taglabel = styled.span`
     margin-top: 5px;
     margin-right: 5px;
@@ -97,6 +100,7 @@ function Event({ props }) {
             city: props.city,
             department: props.department,
             region: props.region,
+            width: 30,
         }
         props.onEventClick(<EventDetails props={p} onEventClose={() => props.onEventClose()} active={true} />);
     }
@@ -121,12 +125,12 @@ function Event({ props }) {
         </EventContainer>
     )
 }
+
 const EventDisplayContainer = styled.div`
     position absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     &:hover {
@@ -140,27 +144,26 @@ const EventDisplayContainer = styled.div`
         align-items: center;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0,0,0,0.05);
     }
     @media (min-width: 700px) {
-        background-color: transparent;
+        background-color: rgba(0,0,0,0.05);
         position: static;
-        width: 30%;
-        height: 100%;
+        width: ${props => props.width ? props.width : 100}%;
     }
     @media (min-width: 1920px) {
-        
     }
     @media (min-width: 2400px) {
-        width: 40%;
+        width: ${props => props.width ? props.width + 10 : 100}%;
     }
     transition: all 0.5s ease;
     .background {
         position: relative;
         @media (min-width: 320px) {
-            background-color: #fff;
+            background-color: white;
+            color: black;
             border-radius: 5px;
-            box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px 0 ${props => props.theme === "light" ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)"};;
             width: 90%;
         }
         @media (min-width: 700px) {
@@ -169,14 +172,12 @@ const EventDisplayContainer = styled.div`
         }
     }
 `;
-
 const EventDetailsHeader = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 10px;
 `;
-
 const EventDetailsDescription = styled.p`
     margin: 0;
     padding: 10px;
@@ -189,7 +190,6 @@ const EventDetailsDescription = styled.p`
         font-size: 1.1rem;
     }
 `;
-
 const EventDetailsAddress = styled.ul`
     margin: 0;
     padding: 10px;
@@ -207,7 +207,6 @@ const EventDetailsAddress = styled.ul`
         list-style: none;
     }
 `;
-
 const Image = styled.img`
     aspect-ratio: 16/9;
     object-fit: cover;
@@ -220,7 +219,6 @@ const Image = styled.img`
         height: 100%;
     }
 `;
-
 const Close = styled.button`
     position: absolute;
     top: 0;
@@ -246,10 +244,10 @@ const Close = styled.button`
     }
     transition: all 0.5s ease;
 `;
-
 function EventDetails(props) {
+    const { state } = React.useContext(AppContext);
     return (
-        <EventDisplayContainer>
+        <EventDisplayContainer width={props.props.width} theme={state.theme}>
             <div className="background">
                 <EventDetailsHeader>
                     <Close onClick={() => props.onEventClose()}>X</Close>

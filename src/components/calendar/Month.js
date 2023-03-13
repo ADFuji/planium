@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { AppContext } from '../../AppProvider';
@@ -12,7 +12,7 @@ const MonthContainer = styled.div`
 `;
 
 function Month(props) {
-    const { state, dispatch } = React.useContext(AppContext);
+    const { state } = React.useContext(AppContext);
     const [weeks, setWeeks] = React.useState([]);
 
     useEffect(() => {

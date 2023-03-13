@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { AppContext } from "../AppProvider";
 const DIV = styled.div`
     @media (min-width: 320px) {
         position: fixed;
@@ -58,6 +58,7 @@ const DIV = styled.div`
 
 function LeftSideMenu(props) {
     const { visible } = props;
+    const { state } = React.useContext(AppContext);
     return (
         <DIV visible={visible}>
             {props.children}

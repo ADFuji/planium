@@ -1,13 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Day from "./Day";
 import { events_all } from "../../ParseJSON";
 import { AppContext } from "../../AppProvider";
 
-
-function getNumberOfDays(month, year) {
-    return new Date(year, month, 0).getDate();
-}
 function getFirstDayOfTheMonth(date) {
     const index = date.getDay();
     switch (index) {
@@ -25,6 +21,8 @@ function getFirstDayOfTheMonth(date) {
             return 4;
         case 6:
             return 5;
+        default:
+            throw new Error("Invalid index");
     }
 }
 
@@ -34,38 +32,18 @@ const WeekContainer = styled.div`
     padding: 0;
     margin: 0;
     width: 100%;
-    height: 20%;
-`;
-
-const DayContainer = styled.div`
-    width: calc(100% / 7);
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    border: 1px solid rgba(0,0,0,0.08);
-    font-size: 1.3rem;
 `;
 
 const TODAY = new Date();
 
 function Week(props) {
-    const [firstDay, setFirstDay] = React.useState(props.firstDay);
-    const [month, setMonth] = React.useState(props.month);
-    const [year, setYear] = React.useState(props.year);
-    //use the date context to get the current date
-    const { state, dispatch } = React.useContext(AppContext);
-
-
-
+    const [firstDay] = React.useState(props.firstDay);
+    const { state } = React.useContext(AppContext);
     const firstDayIndex = getFirstDayOfTheMonth(new Date(state.date.year, state.date.month, 1));
     let days = [];
     for (let i = 0; i < 7; i++) {
         const isToday = (() => {
-            if (TODAY.getMonth() == state.date.month && TODAY.getFullYear() == state.date.year && (i + firstDay - firstDayIndex) > 0 && (i + firstDay - firstDayIndex) == TODAY.getDate()) {
+            if (TODAY.getMonth() === state.date.month && TODAY.getFullYear() === state.date.year && (i + firstDay - firstDayIndex) > 0 && (i + firstDay - firstDayIndex) === TODAY.getDate()) {
                 return true;
             }
             return false;

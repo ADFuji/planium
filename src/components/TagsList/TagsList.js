@@ -34,7 +34,6 @@ const InputContainer = styled.div`
 `;
 function TagsList(props) {
     const { state, dispatch } = React.useContext(AppContext);
-    const [useTags, setUseTags] = React.useState([]);
     function addTag(name) {
         dispatch({ type: "ADD_TAG", payload: name });
     }
@@ -46,6 +45,7 @@ function TagsList(props) {
         tags.forEach((tag, index) => {
             ret.push(
                 <Tag
+                    theme={state.theme}
                     name={tag}
                     id={index}
                     addTag={addTag}
@@ -53,19 +53,6 @@ function TagsList(props) {
                 />
             );
         });
-        /*
-        tags.forEach((tag) => {
-            ret.push(
-                <Tag
-                    name={tag}
-                    id={
-                        tags.indexOf(tag)
-                    }
-                    addTag={addTag}
-                    removeTag={removeTag}
-                />
-            );
-        });*/
         return ret;
     })();
 

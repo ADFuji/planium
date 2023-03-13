@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { AppContext } from "./AppProvider";
 import MenuBar from "./components/MenuBar";
 import LeftSideMenu from "./components/LeftSideMenu";
-
+import { AppContext } from "./AppProvider";
 import TagsList from "./components/TagsList/TagsList";
 import Calendar from "./components/calendar/Calendar";
 import Planning from "./components/planning/Planning";
@@ -17,6 +16,8 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#1e1e1e"};
+  color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
 `;
 
 const AppDiv = styled.div`
@@ -24,6 +25,8 @@ const AppDiv = styled.div`
   height: 100%;
   display: flex;
   align-items: flex-start;
+  background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#1e1e1e"};
+  color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
   @media (min-width: 320px) {
     flex-direction: column;
   }
@@ -36,10 +39,10 @@ const AppDiv = styled.div`
 `;
 
 function App() {
-  const [view, setView] = React.useState(true);
-  const [calendar, setCalendar] = React.useState(<Calendar />);
-  const [planning, setPlanning] = React.useState(<Planning />);
   const { state } = React.useContext(AppContext);
+  const [view, setView] = React.useState(true);
+  const [calendar] = React.useState(<Calendar theme={state.theme} />);
+  const [planning] = React.useState(<Planning theme={state.theme} />);
   function changeViews() {
     setView(!view);
   }
@@ -49,9 +52,9 @@ function App() {
   }
 
   return (
-    <AppContainer>
+    <AppContainer theme={state.theme}>
       <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
-      <AppDiv>
+      <AppDiv theme={state.theme}>
         <LeftSideMenu visible={menuVisible}>
           <div className="tags-list">
             <TagsList />

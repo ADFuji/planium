@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 const iconCalendar = require("./assets/calendar.png");
 const iconList = require("./assets/list.png");
@@ -31,12 +31,6 @@ const ToggleSwitchInput = styled.input`
 ToggleSwitchInput.onChange = function (e) {
     e()
 }
-const Icon = styled.img`
-    width: ${iconWidth}px;	
-    height: ${iconHeight}px;
-    background-color: white;
-    -webkit-transition: .4s;
-`;
 
 const ToggleSwitchIcon = styled.img`
     width: ${iconWidth}px;
@@ -73,10 +67,6 @@ const ToggleSwitchIcon = styled.img`
 
     }
 `;
-
-
-
-
 
 function ToggleSwitch(props) {
     const [checked, setChecked] = React.useState(false);

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppProvider";
 import { events_all } from "../../ParseJSON";
-import Event, { EventDetails } from '../Event';
+import Event from '../Event';
 import Header from "./Header";
 const EventsContainer = styled.div`
     display: flex;
