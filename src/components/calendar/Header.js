@@ -4,8 +4,6 @@ import { AppContext } from '../../AppProvider';
 import { getMonth } from './DateProcess';
 
 import Button from "../Button";
-import { DateContext, dateReducer } from './DateProvider';
-import Month from './Month';
 
 const HeaderContainer = styled.div`
     display: flex;

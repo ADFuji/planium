@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect, setState, useRef, useCallback } from "react";
 import styled from "styled-components";
+import { CalendarContext } from "./CalendarProvider";
 
-import { DateContext, dateReducer } from "./DateProvider";
 import Header from "./Header";
 import Month from "./Month";
 
@@ -26,7 +26,7 @@ const CalendarContainer = styled.div`
 const TODAY = new Date();
 
 function Calendar(props) {
-    const date = React.useContext(DateContext);
+    const { state } = React.useContext(CalendarContext);
     const [previous, setPrevious] = useState(<Month previous={true} />);
     const [current, setCurrent] = useState(<Month />);
     const [next, setNext] = useState(<Month next={true} />);
@@ -36,6 +36,7 @@ function Calendar(props) {
         <CalendarContainer>
             <Header />
             <Month />
+            {state.modal}
         </CalendarContainer>
     );
 

@@ -5,9 +5,9 @@ import MenuBar from "./components/MenuBar";
 import LeftSideMenu from "./components/LeftSideMenu";
 
 import TagsList from "./components/TagsList/TagsList";
-import { DateProvider } from "./components/calendar/DateProvider";
 import Calendar from "./components/calendar/Calendar";
 import Planning from "./components/planning/Planning";
+import { CalendarProvider } from "./components/calendar/CalendarProvider";
 
 const AppContainer = styled.div`
   margin: 0;
@@ -64,32 +64,14 @@ function App() {
             </ul>
           </div>
         </LeftSideMenu>
-        <DateProvider>
+        <CalendarProvider>
           {
             view ? calendar : planning
           }
-        </DateProvider>
+        </CalendarProvider>
       </AppDiv>
     </AppContainer>
   );
-
-  /*
-  return (
-    <AppContainer>
-      <MenuBar changeView={changeViews} toggleMenu={toggleMenu} />
-
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
-        <LeftSideMenu visible={menuVisible}>
-          <TagsList tags={tags} />
-        </LeftSideMenu>
-        <DateProvider>
-          {
-            view ? calendar : planning
-          }
-        </DateProvider>
-      </div>
-    </AppContainer>
-  );*/
 }
 
 export default App;

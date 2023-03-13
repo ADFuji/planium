@@ -15,15 +15,38 @@ const EventsContainer = styled.div`
     background-color: #f5f5f5;
     border-bottom: 1px solid #e0e0e0;
     overflow-y: scroll;
-
+`;
+let width = 100;
+let Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    @media (min-width: 320px) {
+        width: 100%;
+        height: 100%;
+    }
+    @media (min-width: 1920px) {
+        width: ${width}%;
+        height: 100%;
+    }
+    @media (min-width: 2400px) {
+        width: ${width === 100 ? width : width - 10}%;
+        height: 100%;
+    }
+    transition: width 0.5s ease-in-out;
 `;
 function Events(props) {
-    const { state, dispatch } = React.useContext(AppContext);
+    const { state } = React.useContext(AppContext);
     function handleClick(e) {
         props.onEventClick(e);
+        width = 70;
+    }
+    function handleClose() {
+        props.onEventClose();
+        width = 100;
     }
     const _events = (() => {
-        let ret = [];
         const TODAY = new Date();
         const _day = TODAY.getDate();
         const _month = TODAY.getMonth() + 1;
@@ -36,7 +59,6 @@ function Events(props) {
                 for (let d = 1; d < 32; d++) {
                     if (!events_all.get(y).get(m).has(d) || (y === _year && m === _month && d < _day)) continue;
                     events_all.get(y).get(m).get(d).forEach((event) => {
-                        console.log(event);
                         const e = {
                             title: event.title[state.lang] ? event.title[state.lang] : event.title["fr"],
                             description: event.description[state.lang] ? event.description[state.lang] : event.description["fr"],
@@ -44,8 +66,17 @@ function Events(props) {
                             lastDate: new Date(event.lastDate).toLocaleDateString(),
                             tags: event.tags,
                             thumbnail: event.image,
-                            onEventClick: handleClick
+                            firstTimeStart: event.firstTimeStart,
+                            firstTimeEnd: event.firstTimeEnd,
+                            address: event.address,
+                            postalCode: event.postalCode,
+                            city: event.city,
+                            department: event.department,
+                            region: event.region,
+                            onEventClick: handleClick,
+                            onEventClose: handleClose
                         }
+                        console.log(e);
                         events.push(<Event props={e} />);
                     })
                 }
@@ -58,12 +89,12 @@ function Events(props) {
         return events;
     })()
     return (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "center", width: "75%" }}>
+        <Container>
             <Header />
             <EventsContainer>
                 {_events}
             </EventsContainer>
-        </div>
+        </Container>
     )
 }
 

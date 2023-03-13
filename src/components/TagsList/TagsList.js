@@ -37,16 +37,13 @@ function TagsList(props) {
     const [useTags, setUseTags] = React.useState([]);
     function addTag(name) {
         dispatch({ type: "ADD_TAG", payload: name });
-        console.log(state.tags);
     }
     function removeTag(name) {
         dispatch({ type: "REMOVE_TAG", payload: name });
     }
     const displayTags = (() => {
         const ret = [];
-        console.log(tags);
         tags.forEach((tag, index) => {
-            console.log(index, tag);
             ret.push(
                 <Tag
                     name={tag}

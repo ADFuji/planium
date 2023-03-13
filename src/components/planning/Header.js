@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { DateContext } from '../calendar/DateProvider';
 const HeaderContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -12,7 +11,6 @@ const HeaderContainer = styled.div`
     border-bottom: 1px solid #e0e0e0;
 `;
 function Header(props) {
-    const { state, dispatch } = useContext(DateContext);
     return (
         <HeaderContainer>
         </HeaderContainer>

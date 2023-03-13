@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-
 import styled from "styled-components";
-import { events_all } from "../../ParseJSON";
+import { CalendarContext } from "./CalendarProvider";
 const DayContainer = styled.div`
     @media (min-width: 320px) {
         height: 45px;
@@ -42,7 +41,7 @@ const eventWith = 5;
 const eventHeight = eventWith;
 const eventMargin = 5;
 const eventPadding = 2;
-const WithEvent = styled.div`
+const WithEvent = styled.span`
     @media (min-width: 320px) {
         width: ${eventWith - 2}px;
         height: ${eventHeight - 2}px;
@@ -60,7 +59,7 @@ const WithEvent = styled.div`
     margin-top: ${eventMargin}px;
     padding: ${eventPadding}px;
 `;
-const NoEvent = styled.div`
+const NoEvent = styled.span`
     @media (min-width: 320px) {
         width: ${eventWith - 2}px;
         height: ${eventHeight - 2}px;
@@ -148,11 +147,25 @@ const NotToday = styled.span`
     }
 `;
 
+const EventsModal = styled.div`
+    position: absolute;
+    top: ${props => props.top}px;
+    left: ${props => props.left}px;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 100;
+`;
+
 function Day(props) {
+    const { state, dispatch } = React.useContext(CalendarContext);
     const [day, setDay] = React.useState(props.day);
     const [month, setMonth] = React.useState(props.month);
     const [year, setYear] = React.useState(props.year);
     const [hasEvent, setHasEvent] = React.useState(props.hasEvent);
+    const [test, setTest] = React.useState(<span style={{ position: "absolute", top: "0", left: "0" }}></span>);
 
     useEffect(() => {
         setDay(props.day);
@@ -171,8 +184,25 @@ function Day(props) {
         );
     }
 
+    function displayEvents(e) {
+        console.log("displayEvents", e);
+        let x, y;
+        if (e.target.tagName === "SPAN") {
+            x = e.target.parentElement.offsetLeft;
+            y = e.target.parentElement.offsetTop;
+        }
+        //if the target is a div, get the top and left of the target
+        if (e.target.tagName === "DIV") {
+            x = e.target.offsetLeft;
+            y = e.target.offsetTop;
+        }
+        document.getElementById("eventsModal").style.top = y + 100 + "px";
+        document.getElementById("eventsModal").style.left = x + 50 + "px";
+        document.getElementById("eventsModal").style.display = "block";
+    }
+
     return (
-        <DayContainer>
+        <DayContainer onClick={hasEvent ? displayEvents : null}>
             {props.isToday ? <Today>{day}</Today> : <NotToday>{day}</NotToday>}
             {hasEvent ? <WithEvent /> : <NoEvent />}
         </DayContainer>
