@@ -17,7 +17,7 @@ const DIV = styled.div`
     width: 0;
     height: 0;
     overflow: hidden;
-    background-color: #05595e;
+    background-color: ${props => props.theme === "light" ? "#1e1e1e" : "#011416"};
     
     ${props => !props.visible}{
         @media (min-width: 320px) {
@@ -57,10 +57,10 @@ const DIV = styled.div`
 
 
 function LeftSideMenu(props) {
-    const { visible } = props;
     const { state } = React.useContext(AppContext);
+    const { visible } = props;
     return (
-        <DIV visible={visible}>
+        <DIV visible={visible} theme={state.theme}>
             {props.children}
         </DIV>
     )

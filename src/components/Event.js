@@ -18,8 +18,9 @@ const EventContainer = styled.div`
     margin: 0;
     padding: 0;
     border-bottom: 1px solid #e0e0e0;
+    color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
     &:hover {
-        background-color: rgba(0,0,0,0.05);
+        background-color: ${props => props.theme === "light" ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.05)"};
         cursor: pointer;
     }
     @media (min-width: 320px) {
@@ -28,7 +29,7 @@ const EventContainer = styled.div`
     }
     @media (min-width: 1920px) {
         width: 100%;
-        height: 130px;
+        height: 170px;
     }
 `;
 const EventTitle = styled.h1`
@@ -86,6 +87,7 @@ const Taglabel = styled.span`
         
 `;
 function Event({ props }) {
+    const { theme } = React.useContext(AppContext).state;
     function handleEventClick(e) {
         const p = {
             title: props.title,
@@ -100,9 +102,10 @@ function Event({ props }) {
             city: props.city,
             department: props.department,
             region: props.region,
+            conditions: props.conditions,
             width: 30,
         }
-        props.onEventClick(<EventDetails props={p} onEventClose={() => props.onEventClose()} active={true} />);
+        props.onEventClick(<EventDetails props={p} onEventClose={() => props.onEventClose()} active={true}></EventDetails>);
     }
     const tags = (() => {
         const ret = [];
@@ -112,7 +115,7 @@ function Event({ props }) {
         return ret;
     })();
     return (
-        <EventContainer onClick={handleEventClick}>
+        <EventContainer onClick={handleEventClick} theme={theme}>
             <VerticalDiv>
                 <EventDate>{props.firstDate}</EventDate>
                 <EventDate>{props.lastDate}</EventDate>
@@ -160,8 +163,8 @@ const EventDisplayContainer = styled.div`
     .background {
         position: relative;
         @media (min-width: 320px) {
-            background-color: white;
-            color: black;
+            background-color: ${props => props.theme === "light" ? "white" : "black"};
+            color: ${props => props.theme === "light" ? "black" : "white"};
             border-radius: 5px;
             box-shadow: 0 0 10px 0 ${props => props.theme === "light" ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)"};;
             width: 90%;
@@ -205,6 +208,9 @@ const EventDetailsAddress = styled.ul`
         margin: 0;
         padding: 0;
         list-style: none;
+        font-weight: 300;
+        font-size: 1.1rem;
+        font-style: italic;
     }
 `;
 const Image = styled.img`
@@ -248,11 +254,20 @@ function EventDetails(props) {
     const { state } = React.useContext(AppContext);
     return (
         <EventDisplayContainer width={props.props.width} theme={state.theme}>
-            <div className="background">
+            <div className="background" theme={state.theme}>
                 <EventDetailsHeader>
                     <Close onClick={() => props.onEventClose()}>X</Close>
                     <Image src={props.props.thumbnail} />
-                    <EventTitle>{props.props.title}</EventTitle>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <div style={{ width: "80%" }}>
+                            <EventTitle>{props.props.title}</EventTitle>
+                            <span>{props.props.conditions[state.lang] ? props.props.conditions[state.lang] : props.props.conditions["fr"]}</span>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                            <span>{props.props.firstTimeStart}</span>
+                            <span>{props.props.firstTimeEnd}</span>
+                        </div>
+                    </div>
                 </EventDetailsHeader>
                 <EventDetailsDescription>{props.props.description}</EventDetailsDescription>
                 <EventDetailsAddress>

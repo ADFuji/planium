@@ -4,7 +4,7 @@ const initAppContext = {
         month: new Date().getMonth(),
         year: new Date().getFullYear()
     },
-    lang: "fr",
+    lang: "en",
     theme: "light",
     tags: []
 };
@@ -21,6 +21,8 @@ function AppReducer(state, action) {
             return { ...state, lang: action.payload };
         case "SET_THEME":
             return { ...state, theme: action.payload };
+        case "CHANGE_THEME":
+            return { ...state, theme: state.theme === "light" ? "dark" : "light" };
         case "SET_TAGS":
             return { ...state, tags: action.payload };
         case "ADD_TAG":
@@ -67,6 +69,24 @@ function AppReducer(state, action) {
                         month: state.date.month - 1,
                         year: state.date.year
                     }
+                }
+            }
+        }
+        case 'nextYear': {
+            return {
+                ...state,
+                date: {
+                    month: state.date.month,
+                    year: state.date.year + 1
+                }
+            }
+        }
+        case 'prevYear': {
+            return {
+                ...state,
+                date: {
+                    month: state.date.month,
+                    year: state.date.year - 1
                 }
             }
         }

@@ -1,10 +1,14 @@
-// Get all events
+/*
+
+    FICHIER POUR TRAITER LE JSON
+
+*/
+
 const events = require("./events-arles.json").events.sort((a, b) => a.firstDate > b.firstDate ? 1 : -1);
 // Get all tags from all events
 const tags_arr = events.map((event) => event.tags);
 const tags = new Map();
 tags_arr.forEach((tag) => tag.forEach((tag) => tags.set(tag.id, tag.label)));
-console.log(tags);
 export default tags;
 export { events };
 
@@ -19,23 +23,16 @@ function hasEvents(date) {
         return _date >= firstDate && _date <= lastDate;
     });
 }
-
 export { hasEvents };
-
-// index events to be able to search them by [day][month][year]
-const index = {};
 
 const events_all = new Map();
 
+// Create a map of events
 events.forEach((event) => {
     const firstDate = new Date(event.firstDate);
-    const lastDate = new Date(event.lastDate);
     const _day = firstDate.getDate();
     const _month = firstDate.getMonth() + 1;
     const _year = firstDate.getFullYear();
-    const __day = _day;
-    const __month = _month;
-    const __year = _year;
     if (!events_all.has(_year)) {
         events_all.set(_year, new Map());
     }
@@ -47,5 +44,42 @@ events.forEach((event) => {
     }
     events_all.get(_year).get(_month).get(_day).set(event.uid, event);
 });
-export { index };
+
+// Get events from a date
+function getEvents(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    let ret = [];
+    for (let y = year; y < year + 2; y++) {
+        if (!events_all.has(y)) continue;
+        for (let m = 1; m < 13; m++) {
+            if (!events_all.get(y).has(m) || (y === year && m < month)) continue;
+            for (let d = 1; d < 32; d++) {
+                if (!events_all.get(y).get(m).has(d) || (y === year && m === month && d < day)) continue;
+                events_all.get(y).get(m).get(d).forEach((event) => {
+                    ret.push(event);
+                });
+            }
+        }
+    }
+    return ret;
+}
+
+// Sort events with tags
+function sortWithTags(events, tags) {
+    let ret = [];
+    if (tags.length === 0) return events;
+    events.forEach((event) => {
+        const _tags = event.tags;
+        _tags.forEach((tag) => {
+            if (tags.includes(tag.label)) {
+                ret.push(event);
+            }
+        });
+    })
+    return ret;
+}
+
 export { events_all };
+export { getEvents, sortWithTags };

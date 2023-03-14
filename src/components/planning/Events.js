@@ -1,18 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppProvider";
-import { events_all } from "../../ParseJSON";
+import { getEvents, sortWithTags } from "../../ParseJSON";
 import Event from '../Event';
-import Header from "./Header";
 const EventsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 55px);
     width: 100%;
-    background-color: #f5f5f5;
+    background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#1e1e1e"};
+    color: rgb(80,80,80);
     border-bottom: 1px solid #e0e0e0;
     overflow-y: scroll;
 `;
@@ -48,50 +43,35 @@ function Events(props) {
     }
     const _events = (() => {
         const TODAY = new Date();
-        const _day = TODAY.getDate();
-        const _month = TODAY.getMonth() + 1;
-        const _year = TODAY.getFullYear();
+        let events_objs = getEvents(TODAY);
+        events_objs = sortWithTags(events_objs, state.tags);
         let events = [];
-        for (let y = _year; y < _year + 2; y++) {
-            if (!events_all.has(y)) continue;
-            for (let m = 1; m < 13; m++) {
-                if (!events_all.get(y).has(m) || (y === _year && m < _month)) continue;
-                for (let d = 1; d < 32; d++) {
-                    if (!events_all.get(y).get(m).has(d) || (y === _year && m === _month && d < _day)) continue;
-                    events_all.get(y).get(m).get(d).forEach((event) => {
-                        const e = {
-                            title: event.title[state.lang] ? event.title[state.lang] : event.title["fr"],
-                            description: event.description[state.lang] ? event.description[state.lang] : event.description["fr"],
-                            firstDate: new Date(event.firstDate).toLocaleDateString(),
-                            lastDate: new Date(event.lastDate).toLocaleDateString(),
-                            tags: event.tags,
-                            thumbnail: event.image,
-                            firstTimeStart: event.firstTimeStart,
-                            firstTimeEnd: event.firstTimeEnd,
-                            address: event.address,
-                            postalCode: event.postalCode,
-                            city: event.city,
-                            department: event.department,
-                            region: event.region,
-                            onEventClick: handleClick,
-                            onEventClose: handleClose
-                        }
-                        console.log(e);
-                        events.push(<Event props={e} />);
-                    })
-                }
+        events_objs.forEach((event) => {
+            const e = {
+                title: event.title[state.lang] ? event.title[state.lang] : event.title["fr"],
+                description: event.description[state.lang] ? event.description[state.lang] : event.description["fr"],
+                firstDate: new Date(event.firstDate).toLocaleDateString(),
+                lastDate: new Date(event.lastDate).toLocaleDateString(),
+                tags: event.tags,
+                thumbnail: event.image,
+                firstTimeStart: event.firstTimeStart,
+                firstTimeEnd: event.firstTimeEnd,
+                address: event.address,
+                postalCode: event.postalCode,
+                city: event.city,
+                department: event.department,
+                region: event.region,
+                conditions: event.conditions ? event.conditions : "",
+                onEventClick: handleClick,
+                onEventClose: handleClose
             }
-        }
-        //filter duplicates
-        events = events.filter((event, index) => {
-            return events.indexOf(event) === index;
+            events.push(<Event props={e} />);
         })
         return events;
     })()
     return (
-        <Container>
-            <Header />
-            <EventsContainer>
+        <Container theme={state.theme}>
+            <EventsContainer theme={state.theme}>
                 {_events}
             </EventsContainer>
         </Container>

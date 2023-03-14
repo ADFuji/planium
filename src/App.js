@@ -7,6 +7,7 @@ import TagsList from "./components/TagsList/TagsList";
 import Calendar from "./components/calendar/Calendar";
 import Planning from "./components/planning/Planning";
 import { CalendarProvider } from "./components/calendar/CalendarProvider";
+import ToggleSwitch from "./components/ToggleSwitch";
 
 const AppContainer = styled.div`
   margin: 0;
@@ -16,7 +17,7 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#1e1e1e"};
+  background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#03373a"};
   color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
 `;
 
@@ -25,7 +26,7 @@ const AppDiv = styled.div`
   height: 100%;
   display: flex;
   align-items: flex-start;
-  background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#1e1e1e"};
+  background-color: ${props => props.theme === "light" ? "#f5f5f5" : "#011617"};
   color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
   @media (min-width: 320px) {
     flex-direction: column;
@@ -39,7 +40,7 @@ const AppDiv = styled.div`
 `;
 
 function App() {
-  const { state } = React.useContext(AppContext);
+  const { state, dispatch } = React.useContext(AppContext);
   const [view, setView] = React.useState(true);
   const [calendar] = React.useState(<Calendar theme={state.theme} />);
   const [planning] = React.useState(<Planning theme={state.theme} />);
@@ -61,9 +62,8 @@ function App() {
           </div>
           <div className="footer">
             <ul>
-              <li>Settings</li>
-              <li>Help</li>
-              <li>About</li>
+              <li><ToggleSwitch iconTrue="FR" iconFalse="EN" onChange={() => dispatch({ type: "CHANGE_LANG" })} /></li>
+              <li><ToggleSwitch iconTrue="🌞" iconFalse="🌙" onChange={() => dispatch({ type: "CHANGE_THEME" })} /></li>
             </ul>
           </div>
         </LeftSideMenu>

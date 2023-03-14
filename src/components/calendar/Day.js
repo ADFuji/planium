@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { events_all } from "../../ParseJSON";
+import { AppContext } from "../../AppProvider";
 import { CalendarContext } from "./CalendarProvider";
 import { EventDetails } from "../Event";
 import { EventLine } from "./List";
@@ -27,10 +28,10 @@ const DayContainer = styled.div`
     align-items: center;
     margin: 0;
     padding: 0;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid ${props => props.theme === "light" ? "rgb(200,200,200)" : "white"};
     font-size: 1.3rem;
     &:hover {
-        background-color: rgba(0,0,0,0.05);
+        background-color: ${props => props.theme === "light" ? "rgba(0,0,0,0.05);" : "rgba(255,255,255,0.05);"};
         cursor: pointer;
     }
 `;
@@ -81,7 +82,7 @@ const Today = styled.span`
     align-items: center;
     border-radius: 50%;
     background-color: coral;
-    color: white;
+    color: ${props => props.theme === "light" ? "black" : "white"};
     @media (min-width: 320px) {
         width: 30px;
         height: 30px;
@@ -106,6 +107,7 @@ const NotToday = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: ${props => props.theme === "light" ? "black" : "white"};
     @media (min-width: 320px) {
         width: 30px;
         height: 30px;
@@ -130,6 +132,7 @@ const EventsContainer = styled.div`
 `;
 
 function Day(props) {
+    const { state } = React.useContext(AppContext);
     const { dispatch } = React.useContext(CalendarContext);
     const [day, setDay] = React.useState(props.day);
     const [month, setMonth] = React.useState(props.month);
@@ -146,20 +149,18 @@ function Day(props) {
     const date = new Date(year, month, day);
     if (date.getMonth() !== month) {
         return (
-            <DayContainer>
+            <DayContainer theme={state.theme}>
                 <span></span>
                 <span></span>
             </DayContainer>
         );
     }
 
-
-
     function displayEvents(e) {
         function setDetails(props) {
             const p = {
-                title: props.title["fr"],
-                description: props.description["fr"],
+                title: props.title[state.lang] ? props.title[state.lang] : props.title["fr"],
+                description: props.description[state.lang] ? props.description[state.lang] : props.description["fr"],
                 thumbnail: props.image,
                 firstDate: props.firstDate,
                 lastDate: props.lastDate,
@@ -170,11 +171,11 @@ function Day(props) {
                 city: props.city,
                 department: props.department,
                 region: props.region,
+                conditions: props.conditions ? props.conditions : "",
             }
             const _ret = <EventDetails props={p} onEventClose={() => dispatch({ type: "SET_DETAIL", payload: null })} />;
             dispatch({ type: "SET_DETAIL", payload: _ret });
         }
-        //find events for this day
         const events = events_all.get(year).get(month).get(day);
         let ret = [];
         events.forEach((event) => {
@@ -189,22 +190,11 @@ function Day(props) {
     }
 
     return (
-        <DayContainer onClick={hasEvent ? displayEvents : null}>
-            {props.isToday ? <Today>{day}</Today> : <NotToday>{day}</NotToday>}
+        <DayContainer onClick={hasEvent ? displayEvents : null} theme={state.theme}>
+            {props.isToday ? <Today>{day}</Today> : <NotToday theme={state.theme}>{day}</NotToday>}
             {hasEvent ? <WithEvent /> : <NoEvent />}
         </DayContainer>
     );
-
-    /*
-    return (
-        <ContainerStyle style={{borderTop: day!=="" ? "1px solid rgb(100,100,100)" : "1px transparent"}}>
-            <CenteredDiv style={isTODAY ? todayStyle : {}}><p>{day}</p></CenteredDiv>
-            {
-                day!="" && hasEvent ? <Span style={{backgroundColor: "rgb(100,100,100)", width: "1px", height: "1px", borderRadius: "50%", marginTop:"6px"}}></Span> : <Span style={{width: "2px", height: "2px", borderRadius: "50%", marginTop:"3px"}}></Span>
-            }
-        </ContainerStyle>
-    );
-    */
 }
 
 export default Day;

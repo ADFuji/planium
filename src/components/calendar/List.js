@@ -17,7 +17,7 @@ function EventLine(props) {
     const { state } = React.useContext(AppContext);
     return (
         <LineContainer onClick={() => props.onClick()} theme={state.theme}>
-            {props._event.title[state.lang]}
+            {props._event.title[state.lang] ? props._event.title[state.lang] : props._event.title["fr"]}
         </LineContainer>
     );
 }
@@ -27,6 +27,8 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: start;
     overflow-y: auto;
+    border-bottom: 1px solid ${props => props.theme === "light" ? "#f5f5f5" : "#03373a"};
+    padding-bottom: 10px;
     @media (min-width: 320px) {
         height: 327px;
     }
@@ -35,9 +37,10 @@ const Container = styled.div`
     }
 `;
 function EventList(props) {
+    const { state } = React.useContext(AppContext);
     return (
         <React.Fragment>
-            <h1>EventList</h1>
+            <h1 style={{ marginLeft: "10px" }}>{state.lang === "fr" ? "Événements:" : "Events:"}</h1>
             <Container>
                 {props.children}
             </Container>

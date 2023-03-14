@@ -58,7 +58,7 @@ function TagsList(props) {
 
     return (
         <Container>
-            <h3>Tags disponibles</h3>
+            <h3>{state.lang === "fr" ? "Filtrer par:" : "Filter by:"}</h3>
             <InputContainer>
                 {displayTags}
             </InputContainer>

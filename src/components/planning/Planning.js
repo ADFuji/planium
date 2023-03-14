@@ -5,7 +5,6 @@ import Events from "./Events";
 const PlanningContainer = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: rgb(250,250,250);
     color: rgb(80,80,80);
     user-select: none;
     @media (min-width: 320px) {
@@ -23,7 +22,7 @@ function Planning(props) {
     }
     return (
         <React.Fragment>
-            <PlanningContainer>
+            <PlanningContainer theme={props.theme}>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <Events onEventClick={handleEventClick} onEventClose={closeDetails} />
                     {details}

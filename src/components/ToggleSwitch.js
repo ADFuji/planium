@@ -35,6 +35,11 @@ ToggleSwitchInput.onChange = function (e) {
 const ToggleSwitchIcon = styled.img`
     width: ${iconWidth}px;
     height: ${iconHeight}px;
+`;
+
+const ToggleSwitchObj = styled.div`
+    width: ${iconWidth}px;
+    height: ${iconHeight}px;
     position: absolute;
     top: ${padding}px;
     left: ${padding}px;
@@ -43,6 +48,10 @@ const ToggleSwitchIcon = styled.img`
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
     &:before {
         position: absolute;
         src: ${props => props.src};
@@ -51,7 +60,6 @@ const ToggleSwitchIcon = styled.img`
         width: ${iconWidth}px;
         left: 0;
         bottom: 0;
-        background-color: white;
         -webkit-transition: .4s;
         transition: .4s;
         border-radius: 50%;
@@ -70,17 +78,19 @@ const ToggleSwitchIcon = styled.img`
 
 function ToggleSwitch(props) {
     const [checked, setChecked] = React.useState(false);
-    const [icon, setIcon] = React.useState(iconCalendar);
+    const [iconTrue, setIconTrue] = React.useState(props.iconTrue ? props.iconTrue : <ToggleSwitchIcon src={iconList} />);
+    const [iconFalse, setIconFalse] = React.useState(props.iconFalse ? props.iconFalse : <ToggleSwitchIcon src={iconCalendar} />);
+    const [icon, setIcon] = React.useState(iconFalse);
     function handleToggleSwitchChange(e) {
         setChecked(e.target.checked);
-        setIcon(e.target.checked ? iconList : iconCalendar);
-        props.onChange(e.target.checked);
+        setIcon(e.target.checked ? iconTrue : iconFalse);
+        props.onChange();
     }
     return (
 
         <ToggleSwitchContainer>
             <ToggleSwitchInput type="checkbox" checked={checked} onChange={handleToggleSwitchChange} />
-            <ToggleSwitchIcon src={icon} />
+            <ToggleSwitchObj>{icon}</ToggleSwitchObj>
         </ToggleSwitchContainer>
     );
 

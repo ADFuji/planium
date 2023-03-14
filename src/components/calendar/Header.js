@@ -10,6 +10,7 @@ const HeaderContainer = styled.div`
     flex-direction: column;
     padding: 0px;
     width: 100%;
+    color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
 `;
 
 const ControlsContainer = styled.div`
@@ -73,13 +74,15 @@ function Header(props) {
     const { state, dispatch } = useContext(AppContext);
 
     return (
-        <HeaderContainer>
+        <HeaderContainer theme={state.theme}>
             <ControlsContainer>
                 <ControlSpan> {getMonth(state.lang, state.date.month)} - {state.date.year}</ControlSpan>
                 <SelectContainer>
+                    <Button onClick={() => dispatch({ type: 'prevYear' })}>&lt;&lt;</Button>
                     <Button onClick={() => dispatch({ type: 'prevMonth' })}>&lt;</Button>
                     <Button onClick={() => dispatch({ type: 'SET_DATE_TO_TODAY' })}>{state.lang === "fr" ? "Aujourd'hui" : "Today"}</Button>
                     <Button onClick={() => dispatch({ type: 'nextMonth' })}>&gt;</Button>
+                    <Button onClick={() => dispatch({ type: 'nextYear' })}>&gt;&gt;</Button>
                 </SelectContainer>
             </ControlsContainer>
             <DaysContainer>

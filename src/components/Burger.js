@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
+const Container = styled.div`
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    div{
+        background-color: ${props => props.theme === "light" ? "#1e1e1e" : "#f5f5f5"};
+    }
+`;
 const Line = styled.div`
     height: 3px;
     width: 30px;
@@ -33,11 +42,11 @@ function Burger(props) {
         setOpen(!open);
     }
     return (
-        <div onClick={toggleMenu} style={{ cursor: "pointer", width: "30px", height: "30px", marginLeft: "10px" }}>
+        <Container onClick={toggleMenu} theme={props.theme}>
             <LineTop open={open} />
             <LineMiddle open={open} />
             <LineBottom open={open} />
-        </div>
+        </Container>
     );
 }
 

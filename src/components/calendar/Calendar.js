@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { CalendarContext } from "./CalendarProvider";
-
 import Header from "./Header";
 import Month from "./Month";
-
 import { EventList } from "./List";
 
 /**
@@ -26,7 +24,6 @@ const Container = styled.div`
 const CalendarContainer = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: rgb(250,250,250);
     color: rgb(80,80,80);
     max-width: 100vw;
     max-height: 100vh;
@@ -39,8 +36,6 @@ const EDContainer = styled.div`
     display: flex;
     flex-direction: column;
     overflowY: auto;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding-bottom: 10px;
     @media (min-width: 320px) {
         height: 50%;
         width: 100%;
@@ -61,8 +56,8 @@ function Calendar(props) {
                 <Header />
                 <Month />
             </CalendarContainer>
-            <EDContainer>
-                <EventList>
+            <EDContainer theme={props.theme}>
+                <EventList theme={props.theme}>
                     {state.events}
                 </EventList>
                 <div style={{}}>

@@ -39,10 +39,10 @@ function Tag(props) {
     function toggleSelected() {
         setSelected(!selected);
         if (selected) {
-            props.removeTag(props.id);
+            props.removeTag(props.name);
         }
         else {
-            props.addTag(props.id);
+            props.addTag(props.name);
         }
     }
     return (
